@@ -2,8 +2,7 @@ class VoterController < ApplicationController
   before_action :set_voter, only: [:show, :edit, :update, :destroy]
 
   def index
-    byebug
-    @voters = Voter.all
+    @voters = (!params[:gender_filter].nil? && !params[:gender_filter].eql?("All")) ? params[:gender_filter].eql?("Male") ? Voter.where("CAST(cnic AS BIGINT) % 2 != 0") : Voter.where("CAST(cnic AS BIGINT) % 2 = 0") : Voter.all
   end
 
   def show
