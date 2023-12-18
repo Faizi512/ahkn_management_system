@@ -1,0 +1,12 @@
+<!-- app/views/shared/_data_uploader.html.erb -->
+
+<div class="data-uploader">
+  <%= form_tag data_uploader_index_path, multipart: true do %>
+    <div class="file-input-container">
+      <%= label_tag :file, 'Choose an Excel file', class: 'file-label' %>
+      <%= file_field_tag :file, class: 'file-input', accept: '.xls, .xlsx' %>
+    </div>
+
+    <%= submit_tag 'Upload', class: 'upload-button' %>
+  <% end %>
+</div>

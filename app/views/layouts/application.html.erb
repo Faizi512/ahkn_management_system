@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>AHKN</title>
+    <%= stylesheet_link_tag 'dashboard' %>
+    <%= stylesheet_link_tag 'data_uploader' %>
+    <%= stylesheet_link_tag 'table' %>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= favicon_link_tag 'logo.jpg' %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  </head>
+
+  <body>
+    <div class="dashboard-container">
+      <%= render partial: 'shared/sidebar_menu' %>
+      <div class="content">
+        <%= yield %>
+      </div>
+    </div>
+  </body>
+</html>

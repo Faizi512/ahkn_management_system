@@ -1,0 +1,43 @@
+<!-- app/views/voters/index.html.erb -->
+
+<div class="content">
+  <div class="header">
+    <h1>Voters List</h1>
+    <p>This is your application's home page or dashboard.</p>
+    <!-- Add more content as needed -->
+  </div>
+</div>
+
+<table class="table voter-list-table">
+  <thead class= "table-head">
+    <tr class = "table-row">
+      <th>CNIC</th>
+      <th>KID</th>
+      <th>Name</th>
+      <th>Father Name</th>
+      <th>Age</th>
+      <th>Date of Birth</th>
+      <th>Voter Status</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody class= "table-body">
+    <% @voters.each do |voter| %>
+      <tr class = "table-row">
+        <td class= "table-data"><%= voter.cnic %></td>
+        <td class= "table-data" ><%= voter.kid %></td>
+        <td class= "table-data" ><%= voter.name %></td>
+        <td class= "table-data" ><%= voter.father_name %></td>
+        <td class= "table-data" ><%= voter.age %></td>
+        <td class= "table-data" ><%= voter.date_of_birth %></td>
+        <td class= "table-data" ><%= voter.voter_status %></td>
+        <td class= "table-data" ><%= link_to 'Show', voter %></td>
+        <td class= "table-data" ><%= link_to 'Edit', edit_voter_path(voter) %></td>
+        <td class= "table-data" ><%= link_to 'Destroy', voter, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'New Voter', new_voter_path %>
