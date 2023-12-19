@@ -48,6 +48,7 @@ class VoterController < ApplicationController
   def print
     puts "Print"
     @voter = Voter.find(params[:id])
+    @voter.update(printed: true)
     lock
     respond_to do |format|
       format.html { render layout: 'layouts/printable' } # Renders the HTML version using the printable layout
