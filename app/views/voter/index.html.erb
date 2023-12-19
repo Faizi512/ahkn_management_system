@@ -60,11 +60,11 @@
           <td class= "table-data print-button" >
             <%= link_to "Print", "javascript:void(0);", 
               disabled: voter.disabled,
-              class: "print-button",
+              class: "button-link",
               onclick: voter.disabled ? nil : "printAndReload('#{print_voter_path(voter)}');" %>
           </td>
           <td class= "table-data disable-button" >
-            <%= link_to "Lock", voter.disabled ? "javascript:void(0);" : lock_voter_path(voter), class: "disable-button",  disabled: voter.disabled%>
+            <%= link_to "Lock", voter.disabled ? "javascript:void(0);" : lock_voter_path(voter), class: "button-link",  disabled: voter.disabled%>
           </td>
         </div>
       </tr>
