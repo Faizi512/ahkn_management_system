@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Voter Slip</title>
+    <%= csrf_meta_tags %>
+    <%#= stylesheet_link_tag 'printable', media: 'all' %> <!-- Include a separate CSS file for printable styles -->
+    <%= yield(:head) %>
+  </head>
+  <body>
+    <%= yield %>
+  </body>
+</html>

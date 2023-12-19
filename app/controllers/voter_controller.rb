@@ -46,13 +46,19 @@ class VoterController < ApplicationController
   end
 
   def print
-    byebug
     puts "Print"
+    @voter = Voter.find(params[:id])
+    lock
+    respond_to do |format|
+      format.html { render layout: 'layouts/printable' } # Renders the HTML version using the printable layout
+    end
   end
 
   def lock
-    byebug
     puts "Lock"
+    @voter = Voter.find(params[:id])
+    @voter.update(disabled: true)
+    redirect_to root_path, notice: "Row disabled successfully." if !params[:action].eql?("print")
   end
 
   private

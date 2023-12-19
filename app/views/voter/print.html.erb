@@ -1,0 +1,43 @@
+<head>
+  <title>Voter Slip</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    .slip {
+      width: 300px;
+      margin: 0 auto;
+      padding: 20px;
+      border: 1px solid #000;
+      text-align: center;
+    }
+    .heading {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .field {
+      margin-bottom: 15px;
+    }
+    .label {
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="slip">
+    <h1 class="heading">Voter Slip - AHKN</h1>
+    <div class="field">
+      <span class="label">KID:</span> <%= @voter.kid.to_s %>
+    </div>
+    <div class="field">
+      <span class="label">Qabeela:</span> <%= @voter.name %>
+    </div>
+    <div class="field">
+      <span class="label">Name:</span> <%= @voter.name %>
+    </div>
+    <div class="field">
+      <span class="label">Urfiat Name:</span> <%= @voter.cnic %>
+    </div>
+  </div>
+</body>
