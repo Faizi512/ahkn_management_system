@@ -20,6 +20,7 @@
 <table class="table voter-list-table">
   <thead class= "table-head">
     <tr class = "table-row">
+      <th>Sr.</th>
       <th>CNIC</th>
       <th>KID</th>
       <th>Name</th>
@@ -35,6 +36,7 @@
   <tbody class= "table-body">
     <% @voters.each do |voter| %>
       <tr class = "table-row">
+        <td class= "table-data"><%= voter.id %></td>
         <td class= "table-data"><%= voter.cnic %></td>
         <td class= "table-data" ><%= voter.kid %></td>
         <td class= "table-data" ><%= voter.name %></td>
