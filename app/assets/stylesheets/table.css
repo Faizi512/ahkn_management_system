@@ -41,9 +41,15 @@ tbody tr:hover {
 .print-button {
   background-color: #4caf50;
 }
+.print-button:hover {
+  background-color: #347536;
+}
 
 .disable-button {
   background-color: #f44336;
+}
+.disable-button:hover {
+  background-color: #9e2c23;
 }
 
 /* Container holding both filter and search containers */
