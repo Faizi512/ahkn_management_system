@@ -58,7 +58,7 @@ class VoterController < ApplicationController
     puts "Lock"
     @voter = Voter.find(params[:id])
     @voter.update(disabled: true)
-    redirect_to root_path, notice: "Row disabled successfully." if !params[:action].eql?("print")
+    redirect_to voter_index_path, notice: "Row disabled successfully." if !params[:action].eql?("print")
   end
 
   private

@@ -58,13 +58,11 @@
         <!--- <td class= "table-data" ><%= link_to 'Show', voter %></td> -->
         <div class="buttons-container">
           <td class= "table-data print-button" >
-            <%= link_to "Print", "javascript:void(0);", 
-              disabled: voter.disabled,
-              class: "button-link",
+            <%= link_to "Print", "javascript:void(0);", class: "button-link",
               onclick: voter.disabled ? nil : "printAndReload('#{print_voter_path(voter)}');" %>
           </td>
           <td class= "table-data disable-button" >
-            <%= link_to "Lock", voter.disabled ? "javascript:void(0);" : lock_voter_path(voter), class: "button-link",  disabled: voter.disabled%>
+            <%= link_to "Lock", voter.disabled ? "javascript:void(0);" : lock_voter_path(voter), class: "button-link"%>
           </td>
         </div>
       </tr>
