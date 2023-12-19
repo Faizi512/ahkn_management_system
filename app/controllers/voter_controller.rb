@@ -40,6 +40,11 @@ class VoterController < ApplicationController
     redirect_to voters_url, notice: 'Voter was successfully destroyed.'
   end
 
+  def search
+    @voters = Voter.search(params[:query])
+    render :index
+  end
+
   def print
     byebug
     puts "Print"
