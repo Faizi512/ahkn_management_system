@@ -22,13 +22,20 @@ tbody tr:hover {
 }
 
 /* Styles for buttons */
+.buttons-container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #5f94f7;
+}
+
 .print-button, .disable-button {
-  padding: 6px 12px;
+  padding: 6px 10px;
   margin-right: 10px;
   text-decoration: none;
   text-align: center;
-  color: #fff !important;
-  border-radius: 4px;
+  color: #fff;
+  border-radius: 10px;
 }
 
 .print-button {
