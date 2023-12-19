@@ -20,3 +20,21 @@ tbody tr:hover {
   color: #009879;
   background-color: rgb(228, 227, 226);
 }
+
+/* Styles for buttons */
+.print-button, .disable-button {
+  padding: 6px 12px;
+  margin-right: 10px;
+  text-decoration: none;
+  text-align: center;
+  color: #fff !important;
+  border-radius: 4px;
+}
+
+.print-button {
+  background-color: #4caf50;
+}
+
+.disable-button {
+  background-color: #f44336;
+}

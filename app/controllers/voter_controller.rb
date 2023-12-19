@@ -40,6 +40,16 @@ class VoterController < ApplicationController
     redirect_to voters_url, notice: 'Voter was successfully destroyed.'
   end
 
+  def print
+    byebug
+    puts "Print"
+  end
+
+  def lock
+    byebug
+    puts "Lock"
+  end
+
   private
 
   def set_voter

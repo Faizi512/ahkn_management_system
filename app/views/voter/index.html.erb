@@ -43,10 +43,36 @@
         <td class= "table-data" ><%= voter.cnic.to_i.even? ? "Female" : "Male" %></td>
         <td class= "table-data" ><%= voter.date_of_birth %></td>
         <td class= "table-data" ><%= voter.voter_status %></td>
-        <td class= "table-data" ><%= link_to 'Show', voter %></td>
-        <td class= "table-data" ><%= link_to 'Edit', edit_voter_path(voter) %></td>
-        <td class= "table-data" ><%= link_to 'Destroy', voter, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <!--- <td class= "table-data" ><%= link_to 'Show', voter %></td> -->
+        <td class= "table-data print-button" >
+          <%= link_to "Print", "javascript:void(0);", 
+            disabled: voter.disabled,
+            class: "print-button",
+            onclick: voter.disabled ? nil : "printAndReload('#{print_voter_path(voter)}');" %>
+        </td>
+        <td class= "table-data disable-button" >
+          <%= link_to "Lock", voter.disabled ? "javascript:void(0);" : lock_voter_path(voter), class: "disable-button",  disabled: voter.disabled%>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
+
+
+<script>
+
+  function printAndReload(url) {
+    debugger;
+    // Open a new tab and print the page
+    var newWindow = window.open(url, '_blank');
+    newWindow.onload = function() {
+      newWindow.print();
+    };
+
+    // Reload the current page asynchronously
+    setTimeout(function() {
+      location.reload();
+    }, 500); // Wait for 500 milliseconds before reloading (adjust the delay if needed)
+  }
+
+</script>
