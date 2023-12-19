@@ -8,13 +8,23 @@
   </div>
 </div>
 
-<div class="filter-container">
-  <%= form_tag voter_index_path, method: :get, class: 'form-inline mb-3' do %>
-    <%= label_tag 'gender_filter', 'Filter by Gender:' %>
-    <%= select_tag 'gender_filter', options_for_select(['All', 'Male', 'Female'], params[:gender_filter]), class: 'form-control' %>
-    <%= submit_tag 'Apply Filter', class: 'btn btn-primary ml-2' %>
-    <%= link_to 'Clear Filter', voter_index_path, class: 'btn btn-secondary ml-2' %>
-  <% end %>
+<div class="filter-search-container">
+  <div class="filter-container">
+    <%= form_tag voter_index_path, method: :get, class: 'form-inline mb-3' do %>
+      <%= label_tag 'gender_filter', 'Filter by Gender:' %>
+      <%= select_tag 'gender_filter', options_for_select(['All', 'Male', 'Female'], params[:gender_filter]), class: 'form-control' %>
+      <%= submit_tag 'Apply Filter', class: 'btn btn-primary ml-2' %>
+      <%= link_to 'Clear Filter', voter_index_path, class: 'btn btn-secondary ml-2' %>
+    <% end %>
+  </div>
+
+  <div class="search-container">
+    <%= form_tag(search_voter_index_path, method: :get, class: 'form-container') do %>
+      <%= text_field_tag :query, params[:query], placeholder: "Search...", class: "search-input" %>
+      <%= submit_tag "Search", class: "search-button" %>
+      <%= link_to "Clear search", voter_index_path, class: "" %>
+    <% end %>
+  </div>
 </div>
 
 <table class="table voter-list-table">

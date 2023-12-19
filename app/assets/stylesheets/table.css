@@ -38,3 +38,36 @@ tbody tr:hover {
 .disable-button {
   background-color: #f44336;
 }
+
+/* Container holding both filter and search containers */
+.filter-search-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Style for the filter container */
+.filter-container {
+  display: flex;
+  align-items: center;
+}
+
+/* Style for the search container */
+.search-container {
+  display: flex;
+  align-items: center;
+}
+
+/* Additional styles for form elements */
+.form-container {
+  margin-top: 10px;
+}
+
+.search-input {
+  padding: 5px;
+  width: 200px; /* Adjust width as needed */
+}
+
+.search-button {
+  margin-left: 5px;
+}
