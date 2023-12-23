@@ -84,3 +84,85 @@ html, body {
 
   pointer-events: none;
 }
+
+/* Container holding both filter and search containers */
+.filter-search-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Style for the filter container */
+.filter-container {
+  display: flex;
+  align-items: center;
+}
+
+/* Style for the search container */
+.search-container {
+  display: flex;
+  align-items: center;
+}
+
+/* Additional styles for form elements */
+.form-container {
+  margin-top: 10px;
+}
+
+.search-input {
+  padding: 5px;
+  width: 200px; /* Adjust width as needed */
+}
+
+.search-button {
+  margin-left: 5px;
+}
+
+.locked{
+  background-color: #7c7676;
+}
+
+.locked:hover{
+  background-color: #7c7676;
+  color: #000000;
+}
+
+.material-input {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  border-bottom: 1px solid #2196F3;
+  outline: none;
+}
+
+.bar {
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #2196F3;
+  transition: background-color 0.3s;
+}
+
+.search-input:focus + .bar {
+  background-color: #FF4081;
+}
+
+.search-button {
+  /* Add your button styling here */
+}
+
+/* Add styles for the "Clear search" link if needed */
+
+.dashboard-search{
+  display: flex;
+  flex-direction: column;
+}

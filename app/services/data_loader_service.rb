@@ -2,7 +2,6 @@ require 'roo'
 
 class DataLoaderService
   def initialize(file)
-    byebug
     @file = file
   end
 
@@ -11,14 +10,11 @@ class DataLoaderService
     header = spreadsheet.row(1)
 
     (2..spreadsheet.last_row).each do |i|
-      byebug
       row = Hash[[header, spreadsheet.row(i)].transpose]
-      byebug
       
       # Map Excel column names to database column names
       mapped_row = {
-        "id" => row["VOTER NO"],
-        "cnic" => row["CNIC"],
+        "cnic" => row["CNIC"]&.split("-")&.join,
         "kid" => row["KID"],
         "name" => row["NAME"],
         "father_name" => row["FATHER NAME"],
@@ -33,15 +29,15 @@ class DataLoaderService
         "akhn" => row["AKHN"],
         "verification" => row["VERIFICATION"],
         "execution_no" => row["EXECUTION NO"],
-        "f_cnic" => row["F. CNIC"],
+        "f_cnic" => row["F. CNIC"]&.split("-")&.join,
         "spouse_name" => row["SPOUSE NAME"],
-        "sp_cnic" => row["SP. CNIC"],
+        "sp_cnic" => row["SP. CNIC"]&.split("-")&.join,
         "qaber" => row["QABER"],
         "address" => row["ADDRESS"],
         "city" => row["CITY"],
         "cell_no" => row["cell no"],
         "mobile" => row["MOBILE #"],
-        "cnic_chk" => row["CNIC CHK"],
+        "cnic_chk" => row["CNIC CHK"]&.split("-")&.join,
         "qabeela" => row["QABEELA"],
         "urfiat" => row["URFIAT"],
         "wf_upto" => row["W/F UPTO"],
@@ -49,7 +45,7 @@ class DataLoaderService
         "dob" => row["DOB"],
         "kid_chk" => row["KID CHK"]
       }
-      
+      puts mapped_row
       Voter.create!(mapped_row)
     end
   end
@@ -57,7 +53,6 @@ class DataLoaderService
   private
 
   def open_spreadsheet
-    byebug
     case File.extname(@file.original_filename)
     when '.xls' then Roo::Excel.new(@file.path)
     when '.xlsx' then Roo::Excelx.new(@file.path)

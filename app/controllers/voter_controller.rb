@@ -41,14 +41,17 @@ class VoterController < ApplicationController
   end
 
   def search
-    @voters = Voter.search(params[:query])
-    render :index
+    query = params[:query].to_s
+    truncated_query = query.length > 13 ? query[12, 13] : query
+    @voters = Voter.search(truncated_query)
+    render :show
   end
 
   def print
     puts "Print"
     @voter = Voter.find(params[:id])
     @voter.update(printed: true)
+    @voter.update(token_number: @voter.next_token_number)
     lock
     respond_to do |format|
       format.html { render layout: 'layouts/printable' } # Renders the HTML version using the printable layout
@@ -59,7 +62,7 @@ class VoterController < ApplicationController
     puts "Lock"
     @voter = Voter.find(params[:id])
     @voter.update(disabled: true)
-    redirect_to voter_index_path, notice: "Row disabled successfully." if !params[:action].eql?("print")
+    redirect_to root_path, notice: "Row disabled successfully." if !params[:action].eql?("print")
   end
 
   private

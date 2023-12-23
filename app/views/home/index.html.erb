@@ -3,7 +3,20 @@
 <div class="dashboard-container">
   <%= render partial: 'shared/sidebar_menu' %>
   <div class="content">
-  <%= render partial: 'shared/header' %>
-    <div class="watermark"></div>
+    <%= render partial: 'shared/header' %>
+    <div>
+      <!-- <div class="watermark"></div> -->
+      <div class="search-container dashboard-search">
+        <%= form_tag(search_voter_index_path, method: :get, class: 'form-container') do %>
+          <div class="material-input">
+            <%= text_field_tag :query, params[:query], placeholder: "Search...", class: "search-input" %>
+            <span class="bar"></span>
+          </div>
+          <%= submit_tag "Search", class: "search-button" %>
+        <% end %>
+      </div>
+
+    </div>
   </div>
+  
 </div>

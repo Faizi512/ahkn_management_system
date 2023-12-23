@@ -1,0 +1,83 @@
+<!-- app/views/voters/index.html.erb -->
+
+<div class="content">
+  <div class="header">
+    <h1>Voters List</h1>
+    <li><%= link_to "Dashboard", root_path %></li>
+    <!-- Add more content as needed -->
+  </div>
+</div>
+
+<% if @voters.present?%>
+  <table class="table voter-list-table">
+    <thead class= "table-head">
+      <tr class="table-row">
+        <th>Voter No</th>
+        <th>Name</th>
+        <th>CNIC</th>
+        <th>KID CHK</th>
+        <!-- <th>Voter Status</th>-->
+        <th>Father Name</th>
+        <th>KID</th>
+        <th>City</th>
+        <th>Gender</th>
+        <th>QABEELA</th>
+        <th>URFIAT</th>
+        <th colspan="3">Actions</th>
+      </tr>
+    </thead>
+
+    <tbody class= "table-body">
+      <% @voters.each do |voter| %>
+        <tr class = "table-row <%= 'locked' if voter.disabled %>">
+          <!-- <td class= "table-data"><%= voter.id %></td> -->
+          <td class= "table-data"><%= voter.voter_no %></td>
+          <td class= "table-data" ><%= voter.name %></td>
+          <td class= "table-data" ><%= voter.cnic %></td>
+          <td class= "table-data" ><%= voter.kid_chk %></td>
+          <!-- <td class= "table-data" ><%= voter.verification %></td> -->
+          <td class= "table-data" ><%= voter.father_name %></td>
+          <td class= "table-data" ><%= voter.kid %></td>
+          <td class= "table-data" ><%= voter.city %></td>
+          <td class= "table-data" ><%= voter.cnic.to_i.even? ? "Female" : "Male" %></td>
+          <td class= "table-data" ><%= voter.qabeela %></td>
+          <td class= "table-data" ><%= voter.urfiat %></td>
+          <!--- <td class= "table-data" ><%= link_to 'Show', voter %></td> -->
+          
+            <td class= "table-data print-button" >
+              <%= link_to "Print", "javascript:void(0);", class: "button-link",
+                onclick: voter.disabled ? nil : "printAndReload('#{print_voter_path(voter)}');" %>
+            </td>
+            <td class= "table-data disable-button" >
+              <%= link_to "Lock", voter.disabled ? "javascript:void(0);" : lock_voter_path(voter), class: "button-link"%>
+            </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<%else%>
+  <table>
+    <thead>
+      <tr> <th> Not records found! </th></tr>
+    </thead>
+  <table>
+<%end%>
+
+
+<script>
+
+  function printAndReload(url) {
+    // Open a new tab and print the page
+    var newWindow = window.open(url);
+    newWindow.onload = function() {
+      newWindow.print();
+    };
+
+    window.location.href = "/"
+    // Reload the current page asynchronously
+    setTimeout(function() {
+      location.reload();
+    }, 500); // Wait for 500 milliseconds before reloading (adjust the delay if needed)
+  }
+
+</script>

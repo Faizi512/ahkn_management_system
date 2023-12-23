@@ -30,11 +30,12 @@
 <table class="table voter-list-table">
   <thead class= "table-head">
     <tr class="table-row">
+      <th>Sr.</th>
       <th>Voter No</th>
       <th>Name</th>
       <th>CNIC</th>
       <th>KID CHK</th>
-      <!-- <th>Verification</th>-->
+      <!-- <th>Voter Status</th>-->
       <th>Father Name</th>
       <th>KID</th>
       <th>City</th>
@@ -48,7 +49,7 @@
   <tbody class= "table-body">
     <% @voters.each do |voter| %>
       <tr class = "table-row <%= 'locked' if voter.disabled %>">
-        <!-- <td class= "table-data"><%= voter.id %></td> -->
+        <td class= "table-data"><%= voter.id %></td>
         <td class= "table-data"><%= voter.voter_no %></td>
         <td class= "table-data" ><%= voter.name %></td>
         <td class= "table-data" ><%= voter.cnic %></td>
@@ -79,7 +80,8 @@
 
   function printAndReload(url) {
     // Open a new tab and print the page
-    var newWindow = window.open(url, '_blank');
+    var newWindow = window.open(url);
+    window.location.href = "/"
     newWindow.onload = function() {
       newWindow.print();
     };

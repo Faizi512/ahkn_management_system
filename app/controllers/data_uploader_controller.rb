@@ -5,7 +5,6 @@ class DataUploaderController < ApplicationController
   end
 
   def create
-    byebug
     if params[:file].present?
       begin
         DataLoaderService.new(params[:file]).load_voters
