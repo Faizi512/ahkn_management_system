@@ -12,6 +12,11 @@ thead tr {
   text-align: left;
 }
 
+tbody tr {
+  background-color: #d7dfde;
+  text-align: center;
+}
+
 th, td {
     padding: 12px 15px;
 }
@@ -88,4 +93,13 @@ tbody tr:hover {
 
 .search-button {
   margin-left: 5px;
+}
+
+.locked{
+  background-color: #7c7676;
+}
+
+.locked:hover{
+  background-color: #7c7676;
+  color: #000000;
 }
