@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_19_220442) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_23_135024) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -26,6 +26,25 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_19_220442) do
     t.datetime "updated_at", null: false
     t.boolean "disabled"
     t.boolean "printed"
+    t.string "voter_no"
+    t.string "akhn"
+    t.string "verification"
+    t.string "execution_no"
+    t.string "f_cnic"
+    t.string "spouse_name"
+    t.string "sp_cnic"
+    t.string "qaber"
+    t.string "address"
+    t.string "city"
+    t.string "cell_no"
+    t.string "mobile"
+    t.string "cnic_chk"
+    t.string "qabeela"
+    t.string "urfiat"
+    t.string "wf_upto"
+    t.string "family_no"
+    t.string "dob"
+    t.string "kid_chk"
   end
 
 end
