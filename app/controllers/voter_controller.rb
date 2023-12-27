@@ -50,8 +50,8 @@ class VoterController < ApplicationController
   def print
     puts "Print"
     @voter = Voter.find(params[:id])
+    @voter.update(token_number: @voter.next_token_number) if @voter.printed == false
     @voter.update(printed: true)
-    @voter.update(token_number: @voter.next_token_number)
     lock
     respond_to do |format|
       format.html { render layout: 'layouts/printable' } # Renders the HTML version using the printable layout

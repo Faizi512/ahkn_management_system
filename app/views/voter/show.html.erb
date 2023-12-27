@@ -31,13 +31,13 @@
       <% @voters.each do |voter| %>
         <tr class = "table-row <%= 'locked' if voter.disabled %>">
           <!-- <td class= "table-data"><%= voter.id %></td> -->
-          <td class= "table-data"><%= voter.voter_no %></td>
+          <td class= "table-data"><%= voter.kid&.to_i %></td>
           <td class= "table-data" ><%= voter.name %></td>
           <td class= "table-data" ><%= voter.cnic %></td>
-          <td class= "table-data" ><%= voter.kid_chk %></td>
+          <td class= "table-data" ><%= voter&.kid_chk.to_i %></td>
           <!-- <td class= "table-data" ><%= voter.verification %></td> -->
           <td class= "table-data" ><%= voter.father_name %></td>
-          <td class= "table-data" ><%= voter.kid %></td>
+          <td class= "table-data" ><%= voter&.kid.to_i %></td>
           <td class= "table-data" ><%= voter.city %></td>
           <td class= "table-data" ><%= voter.cnic.to_i.even? ? "Female" : "Male" %></td>
           <td class= "table-data" ><%= voter.qabeela %></td>
