@@ -1,0 +1,50 @@
+<head>
+  <title>Voter Slip</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    .slip {
+      width: 180px;
+      margin: 0 auto;
+      padding: 25px;
+      padding-left: 0px;
+      padding-right: 0px;
+      /* border: 1px solid #000; */
+      text-align: center;
+    }
+    .heading {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .field {
+      margin-bottom: 15px;
+    }
+    .label {
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="slip">
+    <h2 class="heading">Anjuman-e-Hussainia Khwajgan Narovali (AHKN)</h2>
+    <div class="field">
+      <h5 class="label"></h5> <%= @voter.cnic.to_i.even? ? "Female" : "Male" %> TOKEN # <%= @voter.token_number%>
+    </div>
+    <div class="field">
+      <h4 class="label">KID # <%= @voter.kid_chk.to_i %> </h4>
+      <h4 class="label">EXEC # <%= @voter.execution_no %> </h4>
+    </div>
+    <div class="field">
+      <h5 class="label">Name: <%= @voter.name %> </h5>
+      <h5 class="label">Father: <%= @voter.father_name %> </h5>
+      <div> <span class="label">Verification:</span> <%= @voter.verification %> </div>
+      <div> <span class="label">Qabeela:</span> <%= @voter.qabeela %> </div>
+      <div> <span class="label">URF:</span> <%= @voter.urfiat %> </div>
+      <h5 class="label">W/fund upto: <%= @voter.wf_upto %> </h5>
+      <h5 class="label">DOB: <%= @voter.dob %> </h5>
+    </div>
+    <h5> Printed at: <%= DateTime.now.strftime("%d-%b-%Y %l:%M %P") %> </br>*************************************** </br> Powered By AHKN</h5>
+  </div>
+</body>

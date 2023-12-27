@@ -58,11 +58,22 @@ class VoterController < ApplicationController
     end
   end
 
+  def special_print
+    puts "Special Print"
+    @voter = Voter.find(params[:id])
+    # @voter.update(token_number: @voter.next_token_number) if @voter.printed == false
+    @voter.update(printed: true)
+    lock
+    respond_to do |format|
+      format.html { render layout: 'layouts/printable' } # Renders the HTML version using the printable layout
+    end
+  end
+
   def lock
     puts "Lock"
     @voter = Voter.find(params[:id])
     @voter.update(disabled: true)
-    redirect_to root_path, notice: "Row disabled successfully." if !params[:action].eql?("print")
+    redirect_to root_path, notice: "Row disabled successfully." if !params[:action].eql?("print") && !params[:action].eql?("special_print")
   end
 
   private
