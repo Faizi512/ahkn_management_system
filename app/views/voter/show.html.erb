@@ -51,6 +51,10 @@
             <td class= "table-data disable-button" >
               <%= link_to "Lock", voter.disabled ? "javascript:void(0);" : lock_voter_path(voter), class: "button-link"%>
             </td>
+            <td class= "table-data print-button special-button" >
+              <%= link_to "Special Print", "javascript:void(0);", class: "button-link",
+                onclick: voter.disabled ? nil : "printAndReload('#{special_print_voter_path(voter)}');" %>
+            </td>
         </tr>
       <% end %>
     </tbody>
@@ -65,6 +69,14 @@
 
 
 <script>
+
+  if(window.location.href.includes("localhost")){
+    console.log("Show")
+  }
+  else{
+    specialButton = document.getElementsByClassName("special-button")[0]
+    specialButton.style.visibility = 'hidden';
+  }
 
   function printAndReload(url) {
     // Open a new tab and print the page
