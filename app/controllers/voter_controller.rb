@@ -18,18 +18,22 @@ class VoterController < ApplicationController
     if !params[:guest_entry].eql?("true")
       @voter = Voter.new(voter_params)
     else
-      @voter = Voter.new(name: params[:name], qabeela: params[:qabeela], urfiat: params[:urfiat], cell_no: params[:phone], cnic: params[:cnic], guest_entry: params[:guest_entry])
-      @voter.update!(token_number: @voter.next_token_number)
+      if !Voter.where(cnic: params[:cnic]).present?
+        @voter = Voter.new(name: params[:name], qabeela: params[:qabeela], urfiat: params[:urfiat], cell_no: params[:phone], cnic: params[:cnic], guest_entry: params[:guest_entry])
+        @voter.update!(token_number: @voter.next_token_number)
+      else
+        redirect_to "/voter/search?query=#{params[:cnic]}&commit=Search"
+      end
     end
 
-    if @voter.save
+    if !@voter.blank? && @voter.save
       if !params[:guest_entry].eql?("true")
         redirect_to @voter, notice: 'Voter was successfully created.'
       else
         redirect_to "/voter/search?query=#{@voter.cnic}&commit=Search"
       end
     else
-      render :new
+      render :new if !@voter.blank?
     end
   end
 
