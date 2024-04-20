@@ -14,10 +14,20 @@ class VoterController < ApplicationController
   end
 
   def create
-    @voter = Voter.new(voter_params)
+    @voter = nil
+    if !params[:guest_entry].eql?("true")
+      @voter = Voter.new(voter_params)
+    else
+      @voter = Voter.new(name: params[:name], qabeela: params[:qabeela], urfiat: params[:urfiat], cell_no: params[:phone], cnic: params[:cnic], guest_entry: params[:guest_entry])
+      @voter.update!(token_number: @voter.next_token_number)
+    end
 
     if @voter.save
-      redirect_to @voter, notice: 'Voter was successfully created.'
+      if !params[:guest_entry].eql?("true")
+        redirect_to @voter, notice: 'Voter was successfully created.'
+      else
+        redirect_to "/voter/search?query=#{@voter.cnic}&commit=Search"
+      end
     else
       render :new
     end
@@ -83,6 +93,6 @@ class VoterController < ApplicationController
   end
 
   def voter_params
-    params.require(:voter).permit(:cnic, :kid, :name, :father_name, :age, :date_of_birth, :voter_status)
+    params.require(:voter).permit(:cnic, :kid, :name, :father_name, :age, :date_of_birth, :voter_status, :guest_entry)
   end
 end

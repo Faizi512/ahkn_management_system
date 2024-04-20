@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_23_201831) do
+ActiveRecord::Schema[7.0].define(version: 2024_04_20_115525) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -46,6 +46,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_23_201831) do
     t.string "dob"
     t.string "kid_chk"
     t.integer "token_number"
+    t.boolean "guest_entry"
   end
 
 end

@@ -1,0 +1,21 @@
+<%= form_with url: voter_index_path, data: {turbo: false} do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+
+  <%= f.label :qabeela %>
+  <%= f.text_field :qabeela %>
+
+  <%= f.label :urfiat %>
+  <%= f.text_field :urfiat %>
+  <br/>
+  <br/>
+  <%= f.label :phone %>
+  <%= f.text_field :phone %>
+
+  <%= f.label :cnic %>
+  <%= f.text_field :cnic %>
+
+  <%= f.hidden_field :guest_entry, value: true%>
+
+  <%= f.submit %>
+<% end %>

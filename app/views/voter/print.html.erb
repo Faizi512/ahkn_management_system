@@ -30,11 +30,18 @@
   <div class="slip">
     <h2 class="heading">Anjuman-e-Hussainia Khwajgan Narovali (AHKN)</h2>
     <div class="field">
+      <% if @voter.guest_entry.eql?(true) %>
+        <h3 class="label"> Guest Entry </h3>
+      <% end %>
       <h5 class="label"></h5> <%= @voter.cnic.to_i.even? ? "Female" : "Male" %> TOKEN # <%= @voter.token_number%>
     </div>
     <div class="field">
-      <h4 class="label">KID # <%= @voter.kid_chk.to_i %> </h4>
-      <h4 class="label">EXEC # <%= @voter.execution_no %> </h4>
+      <% if @voter.guest_entry.eql?(true) %>
+        <h4 class="label">CNIC # <%= @voter.cnic %> </h4>
+      <% else %>
+        <h4 class="label">KID # <%= @voter.kid_chk.to_i %> </h4>
+        <h4 class="label">EXEC # <%= @voter.execution_no %> </h4>
+      <% end %>
     </div>
     <div class="field">
       <h5 class="label">Name: <%= @voter.name %> </h5>

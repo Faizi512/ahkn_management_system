@@ -166,3 +166,7 @@ html, body {
   display: flex;
   flex-direction: column;
 }
+
+.guest_entry{
+  margin: 10px;
+}
