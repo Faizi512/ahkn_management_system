@@ -15,3 +15,34 @@
  */
  @import "font-awesome-sprockets";
  @import "font-awesome";
+
+ /* Base Styles */
+.header {
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .header h1 {
+    font-size: 4em;
+    margin: 0;
+    font-weight: normal;
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    .header .responsive-heading {
+      font-size: 1.5em; /* Optional: Adjust font size for smaller screens */
+      visibility: hidden; /* Hide the original text */
+      position: relative;
+    }
+    
+    .header .responsive-heading::after {
+      content: "AHKN"; /* Display this text instead */
+      visibility: visible;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+  
