@@ -20,12 +20,12 @@ default: &default
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  host: localhost
-  username: postgres
-  password: postgres
 
 development:
   <<: *default
+  host: localhost
+  username: postgres
+  password: postgres
   database: ahkn_management_system_development
 
   # The specified database role being used to connect to postgres.
