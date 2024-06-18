@@ -1,5 +1,7 @@
+require 'tzinfo'
 class VoterController < ApplicationController
   before_action :set_voter, only: [:show, :edit, :update, :destroy]
+  
 
   def index
     @voters = (!params[:gender_filter].nil? && !params[:gender_filter].eql?("All")) ? params[:gender_filter].eql?("Male") ? Voter.where("CAST(cnic AS BIGINT) % 2 != 0") : Voter.where("CAST(cnic AS BIGINT) % 2 = 0") : Voter.all
@@ -63,6 +65,8 @@ class VoterController < ApplicationController
 
   def print
     puts "Print"
+    tz = TZInfo::Timezone.get('Asia/Karachi')
+    @local_time = tz.to_local(Time.now.utc)
     @voter = Voter.find(params[:id])
     @voter.update(token_number: @voter.next_token_number) if @voter.printed == false
     @voter.update(printed: true)

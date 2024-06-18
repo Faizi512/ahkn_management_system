@@ -52,6 +52,7 @@
       <h5 class="label">W/fund upto: <%= @voter.wf_upto %> </h5>
       <h5 class="label">DOB: <%= @voter.dob %> </h5>
     </div>
-    <h5> Printed at: <%= DateTime.now.strftime("%d-%b-%Y %l:%M %P") %> </br>*************************************** </br> Powered By AHKN</h5>
+    <h5> Printed at: <%= @local_time.strftime("%d-%b-%Y %l:%M %P") %> </br>*************************************** </br> Powered By AHKN</h5>
+    
   </div>
 </body>
