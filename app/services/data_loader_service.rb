@@ -74,7 +74,7 @@ class DataLoaderService
         "qabeela" => row["QabeelaName"],
         "urfiat" => row["UrfiatName"],
         "wf_upto" => row["FWelfareFundNo"],
-        "family_no" => row["FAMULY NO"],
+        "family_no" => row["FAMILY NO"],
         "dob" => row["DOB"],
         "kid_chk" => row["CndID"]
       }
