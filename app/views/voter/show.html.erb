@@ -23,6 +23,9 @@
         <th>Gender</th>
         <th>QABEELA</th>
         <th>URFIAT</th>
+        <th>W/F Upto</th>
+        <th>DOB</th>
+        <th>Phone</th>
         <th colspan="3">Actions</th>
       </tr>
     </thead>
@@ -42,6 +45,9 @@
           <td class= "table-data" ><%= voter.cnic.to_i.even? ? "Female" : "Male" %></td>
           <td class= "table-data" ><%= voter.qabeela %></td>
           <td class= "table-data" ><%= voter.urfiat %></td>
+          <td class= "table-data" ><%= voter.wf_upto %></td>
+          <td class= "table-data" ><%= voter.dob %></td>
+          <td class= "table-data" ><%= voter.mobile || voter.cell_no %></td>
           <!--- <td class= "table-data" ><%= link_to 'Show', voter %></td> -->
           
             <td class= "table-data print-button" >
