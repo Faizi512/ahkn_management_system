@@ -6,15 +6,19 @@
     <li class="<%= 'active' if controller_name == 'home' %>">
       <%= link_to "<i class='fa fa-dashboard'></i> Dashboard".html_safe, root_path %>
     </li>
-    <li class="disabled <%= 'active' if controller_name == 'voter' %>">
-      <%= link_to "<i class='fa fa-users'></i> Voters List".html_safe, voter_index_path %>
-    </li>
+    <% if false %>
+      <li class="disabled <%= 'active' if controller_name == 'voter' %>">
+        <%= link_to "<i class='fa fa-users'></i> Voters List".html_safe, voter_index_path %>
+      </li>
+    <% end %>
     <li class="<%= 'active' if controller_name == 'reports' %>">
       <%= link_to "<i class='fa fa-bar-chart'></i> Reports".html_safe, reports_path %>
     </li>
-    <li class="disabled <%= 'active' if controller_name == 'voter' %>" >
-      <%= link_to "<i class='fa fa-upload'></i> Upload Data".html_safe, new_data_uploader_path %>
-    </li>
+    <% if false %>
+      <li class="disabled <%= 'active' if controller_name == 'voter' %>">
+        <%= link_to "<i class='fa fa-upload'></i> Upload Data".html_safe, new_data_uploader_path %>
+      </li>
+    <% end %>
     <li class="disabled">
       <%= link_to "<i class='fa fa-cog'></i> Settings".html_safe, root_path %>
     </li>
