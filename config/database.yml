@@ -27,6 +27,10 @@ development:
   username: postgres
   password: postgres
   database: ahkn_management_system_development
+  # host: ceqbglof0h8enj.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com
+  # database: d6h06r2g3hc204
+  # username: u9drvub1dngura
+  # password: pfb53d581906c51f8b4132e587771c6b173c33382ad25a1d7a65933c77e09981d
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
