@@ -1,0 +1,74 @@
+<div class="dashboard-container">
+  <%= render partial: 'shared/sidebar_menu' %>
+  <div class="content">
+    <%= render partial: 'shared/header' %>
+    
+    <div class="reports-container">
+      <div class="report-header">
+        <h1 class="reports-title"><i class="fa fa-pie-chart"></i> Gender Distribution</h1>
+        <%= link_to "← Back to Reports", reports_path, class: "back-link" %>
+      </div>
+
+      <!-- Gender Summary Cards -->
+      <div class="gender-comparison">
+        <div class="gender-card male-card">
+          <div class="gender-icon"><i class="fa fa-male"></i></div>
+          <h2>Male</h2>
+          <div class="gender-stats">
+            <div class="gender-stat">
+              <span class="gender-value"><%= @male_total %></span>
+              <span class="gender-label">Total Registered</span>
+            </div>
+            <div class="gender-stat">
+              <span class="gender-value"><%= @male_printed %></span>
+              <span class="gender-label">Tokens Printed</span>
+            </div>
+            <div class="gender-stat">
+              <span class="gender-value"><%= @male_total > 0 ? ((@male_printed.to_f / @male_total) * 100).round(1) : 0 %>%</span>
+              <span class="gender-label">Attendance Rate</span>
+            </div>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill male-fill" style="width: <%= @male_total > 0 ? ((@male_printed.to_f / @male_total) * 100) : 0 %>%"></div>
+          </div>
+        </div>
+
+        <div class="gender-card female-card">
+          <div class="gender-icon"><i class="fa fa-female"></i></div>
+          <h2>Female</h2>
+          <div class="gender-stats">
+            <div class="gender-stat">
+              <span class="gender-value"><%= @female_total %></span>
+              <span class="gender-label">Total Registered</span>
+            </div>
+            <div class="gender-stat">
+              <span class="gender-value"><%= @female_printed %></span>
+              <span class="gender-label">Tokens Printed</span>
+            </div>
+            <div class="gender-stat">
+              <span class="gender-value"><%= @female_total > 0 ? ((@female_printed.to_f / @female_total) * 100).round(1) : 0 %>%</span>
+              <span class="gender-label">Attendance Rate</span>
+            </div>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill female-fill" style="width: <%= @female_total > 0 ? ((@female_printed.to_f / @female_total) * 100) : 0 %>%"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Overall Summary -->
+      <div class="overall-summary">
+        <h3>Overall Distribution</h3>
+        <div class="distribution-bar">
+          <div class="male-portion" style="width: <%= (@male_total + @female_total) > 0 ? ((@male_total.to_f / (@male_total + @female_total)) * 100) : 50 %>%">
+            Male <%= (@male_total + @female_total) > 0 ? ((@male_total.to_f / (@male_total + @female_total)) * 100).round(1) : 0 %>%
+          </div>
+          <div class="female-portion" style="width: <%= (@male_total + @female_total) > 0 ? ((@female_total.to_f / (@male_total + @female_total)) * 100) : 50 %>%">
+            Female <%= (@male_total + @female_total) > 0 ? ((@female_total.to_f / (@male_total + @female_total)) * 100).round(1) : 0 %>%
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

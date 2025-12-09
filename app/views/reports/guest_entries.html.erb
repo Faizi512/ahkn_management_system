@@ -1,0 +1,73 @@
+<div class="dashboard-container">
+  <%= render partial: 'shared/sidebar_menu' %>
+  <div class="content">
+    <%= render partial: 'shared/header' %>
+    
+    <div class="reports-container">
+      <div class="report-header">
+        <h1 class="reports-title"><i class="fa fa-user-plus"></i> Guest Entries Report</h1>
+        <%= link_to "← Back to Reports", reports_path, class: "back-link" %>
+      </div>
+
+      <!-- Date Filter -->
+      <div class="filter-section">
+        <%= form_tag guest_entries_reports_path, method: :get, class: "date-filter-form" do %>
+          <label for="date">Filter by Date:</label>
+          <%= date_field_tag :date, params[:date], class: "date-input" %>
+          <%= submit_tag "Filter", class: "filter-btn" %>
+          <% if params[:date].present? %>
+            <%= link_to "Clear", guest_entries_reports_path, class: "clear-btn" %>
+          <% end %>
+        <% end %>
+      </div>
+
+      <!-- Summary -->
+      <div class="stats-grid stats-grid-1">
+        <div class="stat-card stat-purple">
+          <div class="stat-icon"><i class="fa fa-user-plus"></i></div>
+          <div class="stat-info">
+            <span class="stat-value"><%= @guests.count %></span>
+            <span class="stat-label">Total Guest Entries</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Guests Table -->
+      <div class="report-table-container">
+        <table class="report-table">
+          <thead>
+            <tr>
+              <th>Token #</th>
+              <th>Name</th>
+              <th>CNIC</th>
+              <th>Gender</th>
+              <th>Qabeela</th>
+              <th>Urfiat</th>
+              <th>Phone</th>
+              <th>Registered At</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @guests.each do |guest| %>
+              <tr>
+                <td><%= guest.token_number %></td>
+                <td><%= guest.name %></td>
+                <td><%= guest.cnic %></td>
+                <td><%= guest.cnic.to_i.even? ? "Female" : "Male" %></td>
+                <td><%= guest.qabeela %></td>
+                <td><%= guest.urfiat %></td>
+                <td><%= guest.cell_no %></td>
+                <td><%= guest.created_at.strftime("%d-%b-%Y %I:%M %p") %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+
+        <% if @guests.empty? %>
+          <div class="no-data">No guest entries found.</div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+

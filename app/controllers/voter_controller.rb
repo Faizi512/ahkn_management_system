@@ -4,7 +4,11 @@ class VoterController < ApplicationController
   
 
   def index
-    @voters = (!params[:gender_filter].nil? && !params[:gender_filter].eql?("All")) ? params[:gender_filter].eql?("Male") ? Voter.where("CAST(cnic AS BIGINT) % 2 != 0") : Voter.where("CAST(cnic AS BIGINT) % 2 = 0") : Voter.all
+    @voters = if params[:gender_filter].present? && params[:gender_filter] != "All"
+      params[:gender_filter] == "Male" ? Voter.male : Voter.female
+    else
+      Voter.all
+    end
   end
 
   def show

@@ -1,0 +1,87 @@
+<div class="dashboard-container">
+  <%= render partial: 'shared/sidebar_menu' %>
+  <div class="content">
+    <%= render partial: 'shared/header' %>
+    
+    <div class="reports-container">
+      <div class="report-header">
+        <h1 class="reports-title"><i class="fa fa-check-square-o"></i> Attendance Report</h1>
+        <%= link_to "← Back to Reports", reports_path, class: "back-link" %>
+      </div>
+
+      <!-- Date Filter -->
+      <div class="filter-section">
+        <%= form_tag attendance_reports_path, method: :get, class: "date-filter-form" do %>
+          <label for="date">Filter by Date:</label>
+          <%= date_field_tag :date, params[:date], class: "date-input" %>
+          <%= submit_tag "Filter", class: "filter-btn" %>
+          <% if params[:date].present? %>
+            <%= link_to "Clear", attendance_reports_path, class: "clear-btn" %>
+          <% end %>
+        <% end %>
+      </div>
+
+      <!-- Summary Stats -->
+      <div class="stats-grid stats-grid-3">
+        <div class="stat-card stat-success">
+          <div class="stat-info">
+            <span class="stat-value"><%= @total_attendance %></span>
+            <span class="stat-label">Total Attendance</span>
+          </div>
+        </div>
+        <div class="stat-card stat-blue">
+          <div class="stat-info">
+            <span class="stat-value"><%= @male_attendance %></span>
+            <span class="stat-label">Male</span>
+          </div>
+        </div>
+        <div class="stat-card stat-pink">
+          <div class="stat-info">
+            <span class="stat-value"><%= @female_attendance %></span>
+            <span class="stat-label">Female</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Attendance Table -->
+      <div class="report-table-container">
+        <table class="report-table">
+          <thead>
+            <tr>
+              <th>Token #</th>
+              <th>Name</th>
+              <th>CNIC</th>
+              <th>KID</th>
+              <th>Gender</th>
+              <th>Qabeela</th>
+              <th>Printed At</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @voters.each do |voter| %>
+              <tr class="<%= voter.guest_entry ? 'guest-row' : '' %>">
+                <td><%= voter.token_number %></td>
+                <td>
+                  <%= voter.name %>
+                  <% if voter.guest_entry %>
+                    <span class="badge badge-guest">Guest</span>
+                  <% end %>
+                </td>
+                <td><%= voter.cnic %></td>
+                <td><%= voter.kid.to_i %></td>
+                <td><%= voter.cnic.to_i.even? ? "Female" : "Male" %></td>
+                <td><%= voter.qabeela %></td>
+                <td><%= voter.updated_at.strftime("%d-%b-%Y %I:%M %p") %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        
+        <% if @voters.empty? %>
+          <div class="no-data">No attendance records found for the selected criteria.</div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+

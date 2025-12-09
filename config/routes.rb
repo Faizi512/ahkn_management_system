@@ -13,6 +13,19 @@ Rails.application.routes.draw do
       get :special_print
     end
   end
+
+  # Reports
+  resources :reports, only: [:index] do
+    collection do
+      get :attendance
+      get :gender_distribution
+      get :qabeela_stats
+      get :urfiat_stats
+      get :guest_entries
+      get :daily_report
+      get :welfare_status
+    end
+  end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")

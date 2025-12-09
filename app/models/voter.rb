@@ -3,11 +3,25 @@ class Voter < ApplicationRecord
   pg_search_scope :search, against: [:cnic, :kid, :name, :father_name, :voter_no, :cnic_chk, :family_no, :kid_chk],
     using: { tsearch: { any_word: true, prefix: true } }
   
-  def male
-    Voter.where(cnic: "CAST(cnic AS INTEGER) % 2 = 0")
+  # Scopes for gender filtering
+  scope :male, -> { where("CAST(REGEXP_REPLACE(cnic, '[^0-9]', '', 'g') AS BIGINT) % 2 != 0") }
+  scope :female, -> { where("CAST(REGEXP_REPLACE(cnic, '[^0-9]', '', 'g') AS BIGINT) % 2 = 0") }
+  scope :printed, -> { where(printed: true) }
+  scope :pending, -> { where(printed: false) }
+  scope :guests, -> { where(guest_entry: true) }
+
+  # Instance method for gender
+  def gender
+    cnic.to_i.even? ? "Female" : "Male"
   end
 
-  # scope :male, -> { where("LENGTH(cnic) > 0 AND CAST(SUBSTRING(cnic, -1) AS INTEGER) % 2 != 0") }
+  def male?
+    cnic.to_i.odd?
+  end
+
+  def female?
+    cnic.to_i.even?
+  end
 
   def unlock
     self.update(printed: false)

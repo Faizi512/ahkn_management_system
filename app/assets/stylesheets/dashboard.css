@@ -170,3 +170,18 @@ html, body {
 .guest_entry{
   margin: 10px;
 }
+
+/* Disabled menu items - subtle styling */
+.menu li.disabled {
+  background-color: #a8a8a8;
+  pointer-events: none;
+}
+
+.menu li.disabled a {
+  color: #ddd;
+  cursor: not-allowed;
+}
+
+.menu li.disabled:hover {
+  background-color: #a8a8a8;
+}

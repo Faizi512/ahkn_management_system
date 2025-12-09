@@ -1,0 +1,97 @@
+<div class="dashboard-container">
+  <%= render partial: 'shared/sidebar_menu' %>
+  <div class="content">
+    <%= render partial: 'shared/header' %>
+    
+    <div class="reports-container">
+      <div class="report-header">
+        <h1 class="reports-title"><i class="fa fa-calendar-check-o"></i> Daily Report</h1>
+        <%= link_to "← Back to Reports", reports_path, class: "back-link" %>
+      </div>
+
+      <!-- Date Filter -->
+      <div class="filter-section">
+        <%= form_tag daily_report_reports_path, method: :get, class: "date-filter-form" do %>
+          <label for="date">Select Date:</label>
+          <%= date_field_tag :date, @date, class: "date-input" %>
+          <%= submit_tag "View Report", class: "filter-btn" %>
+        <% end %>
+      </div>
+
+      <h2 class="date-heading">Report for: <%= @date.strftime("%A, %d %B %Y") %></h2>
+
+      <!-- Summary Stats -->
+      <div class="stats-grid">
+        <div class="stat-card stat-success">
+          <div class="stat-icon"><i class="fa fa-print"></i></div>
+          <div class="stat-info">
+            <span class="stat-value"><%= @total_today %></span>
+            <span class="stat-label">Total Printed</span>
+          </div>
+        </div>
+        <div class="stat-card stat-blue">
+          <div class="stat-icon"><i class="fa fa-male"></i></div>
+          <div class="stat-info">
+            <span class="stat-value"><%= @male_today %></span>
+            <span class="stat-label">Male</span>
+          </div>
+        </div>
+        <div class="stat-card stat-pink">
+          <div class="stat-icon"><i class="fa fa-female"></i></div>
+          <div class="stat-info">
+            <span class="stat-value"><%= @female_today %></span>
+            <span class="stat-label">Female</span>
+          </div>
+        </div>
+        <div class="stat-card stat-purple">
+          <div class="stat-icon"><i class="fa fa-user-plus"></i></div>
+          <div class="stat-info">
+            <span class="stat-value"><%= @guests_today %></span>
+            <span class="stat-label">Guests</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Daily Table -->
+      <div class="report-table-container">
+        <table class="report-table">
+          <thead>
+            <tr>
+              <th>Token #</th>
+              <th>Name</th>
+              <th>CNIC</th>
+              <th>KID</th>
+              <th>Gender</th>
+              <th>Type</th>
+              <th>Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @printed_today.each do |voter| %>
+              <tr class="<%= voter.guest_entry ? 'guest-row' : '' %>">
+                <td><%= voter.token_number %></td>
+                <td><%= voter.name %></td>
+                <td><%= voter.cnic %></td>
+                <td><%= voter.kid.to_i %></td>
+                <td><%= voter.cnic.to_i.even? ? "Female" : "Male" %></td>
+                <td>
+                  <% if voter.guest_entry %>
+                    <span class="badge badge-guest">Guest</span>
+                  <% else %>
+                    <span class="badge badge-member">Member</span>
+                  <% end %>
+                </td>
+                <td><%= voter.updated_at.strftime("%I:%M %p") %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+
+        <% if @printed_today.empty? %>
+          <div class="no-data">No tokens printed on this date.</div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
