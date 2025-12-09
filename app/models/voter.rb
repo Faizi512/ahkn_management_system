@@ -1,7 +1,18 @@
 class Voter < ApplicationRecord
   include PgSearch::Model
-  pg_search_scope :search, against: [:cnic, :kid, :name, :father_name, :voter_no, :cnic_chk, :family_no, :kid_chk],
-    using: { tsearch: { any_word: true, prefix: true } }
+  
+  # Optimized search using both full-text and trigram search
+  pg_search_scope :search, 
+    against: [:cnic, :kid, :name, :father_name, :voter_no, :cnic_chk, :family_no, :kid_chk],
+    using: {
+      tsearch: { prefix: true, any_word: true },
+      trigram: { threshold: 0.3 }
+    },
+    ignoring: :accents
+
+  # Fast exact match search for CNIC/KID lookups
+  scope :by_cnic, ->(cnic) { where("cnic LIKE ?", "%#{cnic}%") }
+  scope :by_kid, ->(kid) { where("kid LIKE ?", "%#{kid}%") }
   
   # Scopes for gender filtering
   scope :male, -> { where("CAST(REGEXP_REPLACE(cnic, '[^0-9]', '', 'g') AS BIGINT) % 2 != 0") }

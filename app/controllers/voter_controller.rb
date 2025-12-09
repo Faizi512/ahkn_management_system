@@ -61,9 +61,27 @@ class VoterController < ApplicationController
   end
 
   def search
-    query = params[:query].to_s
-    truncated_query = query.length > 13 ? query[12, 13] : query
-    @voters = Voter.search(truncated_query)
+    query = params[:query].to_s.strip
+    
+    # Clean the query - remove dashes and extra spaces
+    clean_query = query.gsub(/[-\s]+/, '')
+    
+    # For CNIC-like queries (all numbers, 13 digits), use exact match for speed
+    if clean_query.match?(/^\d{13}$/)
+      @voters = Voter.where("REPLACE(cnic, '-', '') = ? OR REPLACE(cnic, ' ', '') = ?", clean_query, clean_query)
+    elsif clean_query.match?(/^\d+$/)
+      # Numeric query - search in CNIC, KID, family_no, etc.
+      @voters = Voter.where(
+        "cnic LIKE :q OR kid LIKE :q OR kid_chk LIKE :q OR family_no LIKE :q OR voter_no LIKE :q",
+        q: "%#{clean_query}%"
+      )
+    else
+      # Text query - use full-text search
+      @voters = Voter.search(query)
+    end
+    
+    # Limit results for performance
+    @voters = @voters.limit(100)
     render :show
   end
 
