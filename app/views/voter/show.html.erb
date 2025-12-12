@@ -15,7 +15,7 @@
         <th>Voter No</th>
         <th>Name</th>
         <th>CNIC</th>
-        <th>KID CHK</th>
+        <th>Execution No</th>
         <!-- <th>Voter Status</th>-->
         <th>Father Name</th>
         <th>KID</th>
@@ -37,7 +37,7 @@
           <td class= "table-data"><%= voter.guest_entry.eql?(true) ? "Guest entry" : voter.kid&.to_i %></td>
           <td class= "table-data" ><%= voter.name %></td>
           <td class= "table-data" ><%= voter.cnic %></td>
-          <td class= "table-data" ><%= voter&.kid_chk.to_i %></td>
+          <td class= "table-data" ><%= voter&.execution_no.to_i %></td>
           <!-- <td class= "table-data" ><%= voter.verification %></td> -->
           <td class= "table-data" ><%= voter.father_name %></td>
           <td class= "table-data" ><%= voter&.kid.to_i %></td>

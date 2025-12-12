@@ -61,6 +61,7 @@
               <th>Name</th>
               <th>CNIC</th>
               <th>KID</th>
+              <th>Execution No</th>
               <th>Gender</th>
               <th>Type</th>
               <th>Time</th>
@@ -73,6 +74,7 @@
                 <td><%= voter.name %></td>
                 <td><%= voter.cnic %></td>
                 <td><%= voter.kid.to_i %></td>
+                <td><%= voter.execution_no.presence || "-" %></td>
                 <td><%= voter.cnic.to_i.even? ? "Female" : "Male" %></td>
                 <td>
                   <% if voter.guest_entry %>

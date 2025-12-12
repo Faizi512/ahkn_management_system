@@ -41,6 +41,7 @@
               <th>Name</th>
               <th>CNIC</th>
               <th>Gender</th>
+              <th>Execution No</th>
               <th>Qabeela</th>
               <th>Urfiat</th>
               <th>Phone</th>
@@ -55,6 +56,7 @@
                 <td><%= guest.name %></td>
                 <td><%= guest.cnic %></td>
                 <td><%= guest.cnic.to_i.even? ? "Female" : "Male" %></td>
+                <td><%= guest.execution_no.presence || "-" %></td>
                 <td><%= guest.qabeela %></td>
                 <td><%= guest.urfiat %></td>
                 <td><%= guest.cell_no %></td>
