@@ -25,5 +25,25 @@
       <% end %>
       <%= render partial: 'home/guest_entry', locals: { voter: @voter_for_form } %>
     </div>
+    
+    <div class="guest_entry">
+      <br/>
+      <h2> KID Lock </h2>
+      <% if flash[:notice] %>
+        <div class="alert alert-success" style="background-color: #d4edda; color: #155724; padding: 10px; border-radius: 5px; margin-bottom: 15px;">
+          <%= flash[:notice] %>
+        </div>
+      <% end %>
+      <% if flash[:alert] %>
+        <div class="alert alert-error" style="background-color: #f8d7da; color: #721c24; padding: 10px; border-radius: 5px; margin-bottom: 15px;">
+          <%= flash[:alert] %>
+        </div>
+      <% end %>
+      <%= form_with url: kid_lock_voter_index_path, method: :post, data: {turbo: false}, class: "kid-lock-form" do |f| %>
+        <%= f.label :kid, "KID Number" %>
+        <%= f.text_field :kid, required: true, placeholder: "Enter KID number", value: params[:kid] %>
+        <%= f.submit "Lock", class: "lock-button" %>
+      <% end %>
+    </div>
   </div>
 </div>

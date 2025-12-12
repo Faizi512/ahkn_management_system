@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     collection do
       post 'load'
       get 'search'
+      post 'kid_lock'
     end
     member do
       get :lock

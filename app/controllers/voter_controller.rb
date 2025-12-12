@@ -140,6 +140,40 @@ class VoterController < ApplicationController
     redirect_to root_path, notice: "Row disabled successfully."
   end
 
+  def kid_lock
+    kid = params[:kid].to_s.strip
+    
+    if kid.blank?
+      redirect_to root_path, alert: "KID number is required."
+      return
+    end
+    
+    # Find voter by KID - try exact match first, then partial match
+    voter = Voter.where(kid: kid).first || Voter.where("kid LIKE ?", "%#{kid}%").first
+    
+    if voter.nil?
+      redirect_to root_path, alert: "Voter with KID '#{kid}' not found."
+      return
+    end
+    
+    # Check if voter has execution_no - only lock if execution_no exists
+    if voter.execution_no.blank?
+      redirect_to root_path, alert: "Voter with KID '#{kid}' does not have an execution number. Cannot lock."
+      return
+    end
+    
+    if voter.disabled == true
+      redirect_to root_path, alert: "Voter with KID '#{kid}' is already locked."
+      return
+    end
+    
+    # Lock the voter: set printed=true (counts in attendance) and disabled=true (locks)
+    # Do NOT increment token_number and do NOT print
+    voter.update(printed: true, disabled: true)
+    
+    redirect_to root_path, notice: "Voter with KID '#{kid}' has been locked and counted in attendance."
+  end
+
   private
 
   def set_voter

@@ -68,7 +68,9 @@ class ReportsController < ApplicationController
 
   def qabeela_stats
     @qabeela_data = Voter.group(:qabeela)
-                         .select("qabeela, COUNT(*) as total, 
+                         .select("qabeela, 
+                                  COUNT(*) as total, 
+                                  SUM(CASE WHEN execution_no IS NOT NULL AND execution_no != '' THEN 1 ELSE 0 END) as total_voters,
                                   SUM(CASE WHEN printed = true AND execution_no IS NOT NULL AND execution_no != '' THEN 1 ELSE 0 END) as printed_count")
                          .order("total DESC")
   end

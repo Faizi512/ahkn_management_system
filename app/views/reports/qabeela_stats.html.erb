@@ -16,6 +16,7 @@
               <th>#</th>
               <th>Qabeela</th>
               <th>Total Members</th>
+              <th>Total Voters</th>
               <th>Tokens Printed</th>
               <th>Pending</th>
               <th>Attendance %</th>
@@ -28,12 +29,13 @@
                 <td><%= index + 1 %></td>
                 <td><strong><%= item.qabeela.presence || "Not Specified" %></strong></td>
                 <td><%= item.total %></td>
+                <td><%= item.total_voters.to_i %></td>
                 <td class="text-success"><%= item.printed_count %></td>
-                <td class="text-warning"><%= item.total - item.printed_count %></td>
-                <td><%= item.total > 0 ? ((item.printed_count.to_f / item.total) * 100).round(1) : 0 %>%</td>
+                <td class="text-warning"><%= item.total_voters.to_i - item.printed_count.to_i %></td>
+                <td><%= item.total_voters.to_i > 0 ? ((item.printed_count.to_f / item.total_voters.to_i) * 100).round(1) : 0 %>%</td>
                 <td>
                   <div class="mini-progress">
-                    <div class="mini-progress-fill" style="width: <%= item.total > 0 ? ((item.printed_count.to_f / item.total) * 100) : 0 %>%"></div>
+                    <div class="mini-progress-fill" style="width: <%= item.total_voters.to_i > 0 ? ((item.printed_count.to_f / item.total_voters.to_i) * 100) : 0 %>%"></div>
                   </div>
                 </td>
               </tr>
