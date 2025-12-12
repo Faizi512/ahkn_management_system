@@ -25,7 +25,7 @@ class VoterController < ApplicationController
       @voter = Voter.new(voter_params)
     else
       if !Voter.where(cnic: params[:cnic]).present?
-        @voter = Voter.new(name: params[:name], qabeela: params[:qabeela], urfiat: params[:urfiat], cell_no: params[:phone], cnic: params[:cnic], guest_entry: params[:guest_entry])
+        @voter = Voter.new(name: params[:name], qabeela: params[:qabeela], urfiat: params[:urfiat], cell_no: params[:phone], execution_no: params[:execution_no], cnic: params[:cnic], guest_entry: params[:guest_entry])
         @voter.update!(token_number: @voter.next_token_number)
       else
         redirect_to "/voter/search?query=#{params[:cnic]}&commit=Search"
