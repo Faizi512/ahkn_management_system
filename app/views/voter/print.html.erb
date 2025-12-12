@@ -98,6 +98,12 @@
         <td class="lbl">DOB</td>
         <td class="val"><%= @voter.formatted_dob %></td>
       </tr>
+      <% if @voter.guest_entry.eql?(true) && @voter.user_code.present? %>
+      <tr>
+        <td class="lbl">User Code</td>
+        <td class="val"><%= @voter.user_code %></td>
+      </tr>
+      <% end %>
     </table>
     </div>
     
