@@ -44,6 +44,7 @@
               <th>Qabeela</th>
               <th>Urfiat</th>
               <th>Phone</th>
+              <th>User Code</th>
               <th>Registered At</th>
             </tr>
           </thead>
@@ -57,6 +58,7 @@
                 <td><%= guest.qabeela %></td>
                 <td><%= guest.urfiat %></td>
                 <td><%= guest.cell_no %></td>
+                <td><%= guest.user_code %></td>
                 <td><%= guest.created_at.strftime("%d-%b-%Y %I:%M %p") %></td>
               </tr>
             <% end %>
