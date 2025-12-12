@@ -50,6 +50,10 @@
   grid-template-columns: repeat(3, 1fr);
 }
 
+.stats-grid-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
 .stats-grid-1 {
   grid-template-columns: 1fr;
   max-width: 300px;

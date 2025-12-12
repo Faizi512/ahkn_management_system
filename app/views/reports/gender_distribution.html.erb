@@ -27,6 +27,10 @@
               <span class="gender-value"><%= @male_total > 0 ? ((@male_printed.to_f / @male_total) * 100).round(1) : 0 %>%</span>
               <span class="gender-label">Attendance Rate</span>
             </div>
+            <div class="gender-stat">
+              <span class="gender-value"><%= @male_voters_with_exec %></span>
+              <span class="gender-label">Male Voters (with Exec No)</span>
+            </div>
           </div>
           <div class="progress-bar">
             <div class="progress-fill male-fill" style="width: <%= @male_total > 0 ? ((@male_printed.to_f / @male_total) * 100) : 0 %>%"></div>
@@ -48,6 +52,10 @@
             <div class="gender-stat">
               <span class="gender-value"><%= @female_total > 0 ? ((@female_printed.to_f / @female_total) * 100).round(1) : 0 %>%</span>
               <span class="gender-label">Attendance Rate</span>
+            </div>
+            <div class="gender-stat">
+              <span class="gender-value"><%= @female_voters_with_exec %></span>
+              <span class="gender-label">Female Voters (with Exec No)</span>
             </div>
           </div>
           <div class="progress-bar">

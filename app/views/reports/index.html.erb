@@ -47,7 +47,7 @@
           <div class="stat-icon"><i class="fa fa-male"></i></div>
           <div class="stat-info">
             <span class="stat-value"><%= @male_count %></span>
-            <span class="stat-label">Male Voters</span>
+            <span class="stat-label">Male Registered</span>
           </div>
         </div>
         
@@ -55,7 +55,7 @@
           <div class="stat-icon"><i class="fa fa-female"></i></div>
           <div class="stat-info">
             <span class="stat-value"><%= @female_count %></span>
-            <span class="stat-label">Female Voters</span>
+            <span class="stat-label">Female Registered</span>
           </div>
         </div>
         
@@ -64,6 +64,25 @@
           <div class="stat-info">
             <span class="stat-value"><%= @total_guest_entries %></span>
             <span class="stat-label">Guest Entries</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Third Row Stats - Voters with Execution No -->
+      <div class="stats-grid stats-grid-2">
+        <div class="stat-card stat-blue">
+          <div class="stat-icon"><i class="fa fa-male"></i></div>
+          <div class="stat-info">
+            <span class="stat-value"><%= @male_voters_with_exec %></span>
+            <span class="stat-label">Male Voters</span>
+          </div>
+        </div>
+        
+        <div class="stat-card stat-pink">
+          <div class="stat-icon"><i class="fa fa-female"></i></div>
+          <div class="stat-info">
+            <span class="stat-value"><%= @female_voters_with_exec %></span>
+            <span class="stat-label">Female Voters</span>
           </div>
         </div>
       </div>

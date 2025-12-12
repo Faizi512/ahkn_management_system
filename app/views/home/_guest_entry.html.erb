@@ -22,20 +22,20 @@
         ['KHUDABANDA', 'KHUDABANDA']
       ], params[:qabeela]),
       { prompt: 'Select Qabeela' },
-      { required: true, class: 'qabeela-select' } %>
+      { class: 'qabeela-select' } %>
   <% if voter&.errors&.[](:qabeela)&.any? %>
     <span style="color: #dc3545; font-size: 12px; display: block;"><%= voter.errors[:qabeela].first %></span>
   <% end %>
 
   <%= f.label :urfiat %>
-  <%= f.text_field :urfiat, required: true, value: params[:urfiat] %>
+  <%= f.text_field :urfiat, value: params[:urfiat] %>
   <% if voter&.errors&.[](:urfiat)&.any? %>
     <span style="color: #dc3545; font-size: 12px; display: block;"><%= voter.errors[:urfiat].first %></span>
   <% end %>
   <br/>
   <br/>
   <%= f.label :phone %>
-  <%= f.text_field :phone, required: true, value: params[:phone] %>
+  <%= f.text_field :phone, value: params[:phone] %>
   <% if voter&.errors&.[](:cell_no)&.any? %>
     <span style="color: #dc3545; font-size: 12px; display: block;"><%= voter.errors[:cell_no].first %></span>
   <% end %>
