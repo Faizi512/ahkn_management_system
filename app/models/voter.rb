@@ -15,8 +15,8 @@ class Voter < ApplicationRecord
   scope :by_kid, ->(kid) { where("kid LIKE ?", "%#{kid}%") }
   
   # Scopes for gender filtering
-  scope :male, -> { where("CAST(REGEXP_REPLACE(cnic, '[^0-9]', '', 'g') AS BIGINT) % 2 != 0") }
-  scope :female, -> { where("CAST(REGEXP_REPLACE(cnic, '[^0-9]', '', 'g') AS BIGINT) % 2 = 0") }
+  scope :male, -> { where("cnic IS NOT NULL AND cnic != '' AND CAST(REGEXP_REPLACE(cnic, '[^0-9]', '', 'g') AS BIGINT) % 2 != 0") }
+  scope :female, -> { where("cnic IS NOT NULL AND cnic != '' AND CAST(REGEXP_REPLACE(cnic, '[^0-9]', '', 'g') AS BIGINT) % 2 = 0") }
   scope :printed, -> { where(printed: true) }
   scope :pending, -> { where(printed: false) }
   scope :guests, -> { where(guest_entry: true) }

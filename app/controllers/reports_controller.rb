@@ -8,9 +8,9 @@ class ReportsController < ApplicationController
     @total_guest_entries = Voter.where(guest_entry: true).count
     
     # Gender breakdown (odd CNIC = male, even = female)
-    # Remove non-numeric characters before casting
-    @male_count = Voter.where("CAST(REGEXP_REPLACE(cnic, '[^0-9]', '', 'g') AS BIGINT) % 2 != 0").count
-    @female_count = Voter.where("CAST(REGEXP_REPLACE(cnic, '[^0-9]', '', 'g') AS BIGINT) % 2 = 0").count
+    # Remove non-numeric characters before casting, handle NULL/empty values
+    @male_count = Voter.where("cnic IS NOT NULL AND cnic != '' AND CAST(REGEXP_REPLACE(cnic, '[^0-9]', '', 'g') AS BIGINT) % 2 != 0").count
+    @female_count = Voter.where("cnic IS NOT NULL AND cnic != '' AND CAST(REGEXP_REPLACE(cnic, '[^0-9]', '', 'g') AS BIGINT) % 2 = 0").count
     
     # Today's statistics
     @today_printed = Voter.where(printed: true)
@@ -31,15 +31,15 @@ class ReportsController < ApplicationController
     end
     
     @total_attendance = @voters.count
-    @male_attendance = @voters.where("CAST(REGEXP_REPLACE(cnic, '[^0-9]', '', 'g') AS BIGINT) % 2 != 0").count
-    @female_attendance = @voters.where("CAST(REGEXP_REPLACE(cnic, '[^0-9]', '', 'g') AS BIGINT) % 2 = 0").count
+    @male_attendance = @voters.where("cnic IS NOT NULL AND cnic != '' AND CAST(REGEXP_REPLACE(cnic, '[^0-9]', '', 'g') AS BIGINT) % 2 != 0").count
+    @female_attendance = @voters.where("cnic IS NOT NULL AND cnic != '' AND CAST(REGEXP_REPLACE(cnic, '[^0-9]', '', 'g') AS BIGINT) % 2 = 0").count
     @guest_attendance = @voters.where(guest_entry: true).count
     @member_attendance = @voters.where(guest_entry: false).count
   end
 
   def gender_distribution
-    @male_voters = Voter.where("CAST(REGEXP_REPLACE(cnic, '[^0-9]', '', 'g') AS BIGINT) % 2 != 0")
-    @female_voters = Voter.where("CAST(REGEXP_REPLACE(cnic, '[^0-9]', '', 'g') AS BIGINT) % 2 = 0")
+    @male_voters = Voter.where("cnic IS NOT NULL AND cnic != '' AND CAST(REGEXP_REPLACE(cnic, '[^0-9]', '', 'g') AS BIGINT) % 2 != 0")
+    @female_voters = Voter.where("cnic IS NOT NULL AND cnic != '' AND CAST(REGEXP_REPLACE(cnic, '[^0-9]', '', 'g') AS BIGINT) % 2 = 0")
     
     @male_total = @male_voters.count
     @female_total = @female_voters.count
@@ -80,8 +80,8 @@ class ReportsController < ApplicationController
                           .order(token_number: :asc)
     
     @total_today = @printed_today.count
-    @male_today = @printed_today.where("CAST(REGEXP_REPLACE(cnic, '[^0-9]', '', 'g') AS BIGINT) % 2 != 0").count
-    @female_today = @printed_today.where("CAST(REGEXP_REPLACE(cnic, '[^0-9]', '', 'g') AS BIGINT) % 2 = 0").count
+    @male_today = @printed_today.where("cnic IS NOT NULL AND cnic != '' AND CAST(REGEXP_REPLACE(cnic, '[^0-9]', '', 'g') AS BIGINT) % 2 != 0").count
+    @female_today = @printed_today.where("cnic IS NOT NULL AND cnic != '' AND CAST(REGEXP_REPLACE(cnic, '[^0-9]', '', 'g') AS BIGINT) % 2 = 0").count
     @guests_today = @printed_today.where(guest_entry: true).count
   end
 
