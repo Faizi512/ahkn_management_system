@@ -24,6 +24,29 @@
     .label {
       font-weight: bold;
     }
+    .table-wrapper {
+      display: flex;
+      justify-content: center;
+      margin-top: 10px;
+    }
+    .details-table {
+      text-align: left;
+    }
+    .details-table td {
+      padding: 2px 0;
+      font-size: 12px;
+    }
+    .details-table .lbl {
+      text-align: left;
+      font-weight: text;
+      width: 70px;
+    }
+    .details-table .val {
+      font-weight: bold;
+    }
+    .center-class {
+      margin-left: 10px;
+    }
   </style>
 </head>
 <body>
@@ -43,15 +66,41 @@
         <h4 class="label">EXEC  <%= @voter.execution_no %> </h4>
       <% end %>
     </div>
-    <div class="field">
-      <h5 class="label">Name: <%= @voter.name %> </h5>
-      <h5 class="label">Father: <%= @voter.father_name %> </h5>
-      <div> <span class="label">Verification:</span> <%= @voter.verification %> </div>
-      <div> <span class="label">Qabeela:</span> <%= @voter.qabeela %> </div>
-      <div> <span class="label">URF:</span> <%= @voter.urfiat %> </div>
-      <h5 class="label">W/fund upto: <%= @voter.wf_upto %> </h5>
-      <h5 class="label">DOB: <%= @voter.dob %> </h5>
+    
+    <!-- Table layout for details below execution number -->
+    <div class="table-wrapper center-class">
+    <table class="details-table">
+      <tr>
+        <td class="lbl">Name</td>
+        <td class="val"><%= @voter.name %></td>
+      </tr>
+      <tr>
+        <td class="lbl">Father</td>
+        <td class="val"><%= @voter.father_name %></td>
+      </tr>
+      <tr>
+        <td class="lbl">Verification</td>
+        <td class="val"><%= @voter.verification %></td>
+      </tr>
+      <tr>
+        <td class="lbl">Qabeela</td>
+        <td class="val"><%= @voter.qabeela %></td>
+      </tr>
+      <tr>
+        <td class="lbl">URF</td>
+        <td class="val"><%= @voter.urfiat %></td>
+      </tr>
+      <tr>
+        <td class="lbl">W/fund upto</td>
+        <td class="val"><%= @voter.wf_upto %></td>
+      </tr>
+      <tr>
+        <td class="lbl">DOB</td>
+        <td class="val"><%= @voter.dob %></td>
+      </tr>
+    </table>
     </div>
+    
     <h5> Printed at: <%= @local_time.strftime("%d-%b-%Y %l:%M %P") %> </br>*************************************** </br> Powered By AHKN</h5>
     
   </div>
