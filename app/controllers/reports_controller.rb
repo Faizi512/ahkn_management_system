@@ -17,6 +17,10 @@ class ReportsController < ApplicationController
     @male_voters_with_exec = Voter.where("cnic IS NOT NULL AND cnic != '' AND execution_no IS NOT NULL AND execution_no != '' AND CAST(REGEXP_REPLACE(cnic, '[^0-9]', '', 'g') AS BIGINT) % 2 != 0").count
     @female_voters_with_exec = Voter.where("cnic IS NOT NULL AND cnic != '' AND execution_no IS NOT NULL AND execution_no != '' AND CAST(REGEXP_REPLACE(cnic, '[^0-9]', '', 'g') AS BIGINT) % 2 = 0").count
     
+    # Non-voters (without execution_no)
+    @male_non_voters = Voter.where("cnic IS NOT NULL AND cnic != '' AND (execution_no IS NULL OR execution_no = '') AND CAST(REGEXP_REPLACE(cnic, '[^0-9]', '', 'g') AS BIGINT) % 2 != 0").count
+    @female_non_voters = Voter.where("cnic IS NOT NULL AND cnic != '' AND (execution_no IS NULL OR execution_no = '') AND CAST(REGEXP_REPLACE(cnic, '[^0-9]', '', 'g') AS BIGINT) % 2 = 0").count
+    
     # Today's statistics (only voters with execution_no)
     @today_printed = Voter.where(printed: true)
                           .where("execution_no IS NOT NULL AND execution_no != ''")
