@@ -33,6 +33,8 @@ class ReportsController < ApplicationController
     @total_attendance = @voters.count
     @male_attendance = @voters.where("CAST(REGEXP_REPLACE(cnic, '[^0-9]', '', 'g') AS BIGINT) % 2 != 0").count
     @female_attendance = @voters.where("CAST(REGEXP_REPLACE(cnic, '[^0-9]', '', 'g') AS BIGINT) % 2 = 0").count
+    @guest_attendance = @voters.where(guest_entry: true).count
+    @member_attendance = @voters.where(guest_entry: false).count
   end
 
   def gender_distribution

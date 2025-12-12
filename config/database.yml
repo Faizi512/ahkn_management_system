@@ -24,14 +24,14 @@ default: &default
 
 development:
   <<: *default
-  # host: localhost
-  # username: postgres
-  # password: postgres
-  # database: ahkn_management_system_development
-  host: c7itisjfjj8ril.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com
-  database: d1cqlr95faf816
-  username: u16kj0il31bnjt
-  password: p33423d818d0b4ae7a8bba052472ad1f935e16e150b65bdb56c56a9f0f8f3f0b7
+  host: localhost
+  username: postgres
+  password: postgres
+  database: ahkn_management_system_development
+  # host: c7itisjfjj8ril.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com
+  # database: d7q797u14017ta
+  # username: u16kj0il31bnjt
+  # password: pf8cbc9d1f4f0c360071b3bfa6ca1eab25842fd7dfad49f96f6bdd685871815c4
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -63,9 +63,9 @@ development:
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
-test:
-  <<: *default
-  database: ahkn_management_system_test
+# test:
+#   <<: *default
+#   database: ahkn_management_system_test
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is

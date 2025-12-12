@@ -22,7 +22,7 @@
       </div>
 
       <!-- Summary Stats -->
-      <div class="stats-grid stats-grid-3">
+      <div class="stats-grid">
         <div class="stat-card stat-success">
           <div class="stat-info">
             <span class="stat-value"><%= @total_attendance %></span>
@@ -41,6 +41,18 @@
             <span class="stat-label">Female</span>
           </div>
         </div>
+        <div class="stat-card stat-info">
+          <div class="stat-info">
+            <span class="stat-value"><%= @member_attendance %></span>
+            <span class="stat-label">Members</span>
+          </div>
+        </div>
+        <div class="stat-card stat-purple">
+          <div class="stat-info">
+            <span class="stat-value"><%= @guest_attendance %></span>
+            <span class="stat-label">Guests</span>
+          </div>
+        </div>
       </div>
 
       <!-- Attendance Table -->
@@ -53,6 +65,7 @@
               <th>CNIC</th>
               <th>KID</th>
               <th>Gender</th>
+              <th>Type</th>
               <th>Qabeela</th>
               <th>Printed At</th>
             </tr>
@@ -70,6 +83,13 @@
                 <td><%= voter.cnic %></td>
                 <td><%= voter.kid.to_i %></td>
                 <td><%= voter.cnic.to_i.even? ? "Female" : "Male" %></td>
+                <td>
+                  <% if voter.guest_entry %>
+                    <span class="badge badge-guest">Guest</span>
+                  <% else %>
+                    <span class="badge badge-member">Member</span>
+                  <% end %>
+                </td>
                 <td><%= voter.qabeela %></td>
                 <td><%= voter.updated_at.strftime("%d-%b-%Y %I:%M %p") %></td>
               </tr>
