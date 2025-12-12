@@ -10,8 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_12_09_113034) do
+ActiveRecord::Schema[7.0].define(version: 2025_12_12_091528) do
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pg_stat_statements"
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
 
@@ -59,6 +60,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_12_09_113034) do
     t.index ["name"], name: "index_voters_on_name", opclass: :gin_trgm_ops, using: :gin
     t.index ["printed", "updated_at"], name: "index_voters_on_printed_and_updated_at"
     t.index ["printed"], name: "index_voters_on_printed"
+    t.index ["token_number"], name: "index_voters_on_token_number"
     t.index ["voter_no"], name: "index_voters_on_voter_no"
   end
 

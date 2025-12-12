@@ -34,6 +34,16 @@ class Voter < ApplicationRecord
     cnic.to_i.even?
   end
 
+  # Format DOB as dd-mm-yyyy
+  def formatted_dob
+    return dob if dob.blank?
+    begin
+      Date.parse(dob.to_s).strftime("%d-%m-%Y")
+    rescue
+      dob  # Return original if parsing fails
+    end
+  end
+
   def unlock
     self.update(printed: false)
     self.update(disabled: false)
@@ -44,7 +54,8 @@ class Voter < ApplicationRecord
   end
 
   def next_token_number
-    last_token_number = Voter.maximum(:token_number) || 0
-    last_token_number + 1
+    # Use raw SQL for faster MAX query with index hint
+    result = Voter.connection.select_value("SELECT COALESCE(MAX(token_number), 0) + 1 FROM voters")
+    result.to_i
   end
 end

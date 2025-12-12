@@ -43,7 +43,7 @@
       <div> <span class="label">Qabeela:</span> <%= @voter.qabeela %> </div>
       <div> <span class="label">URF:</span> <%= @voter.urfiat %> </div>
       <h5 class="label">W/fund upto: <%= @voter.wf_upto %> </h5>
-      <h5 class="label">DOB: <%= @voter.dob %> </h5>
+      <h5 class="label">DOB: <%= @voter.formatted_dob %> </h5>
     </div>
     <h5> Printed at: <%= DateTime.now.strftime("%d-%b-%Y %l:%M %P") %> </br>*************************************** </br> Powered By AHKN</h5>
   </div>

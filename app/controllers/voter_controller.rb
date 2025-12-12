@@ -90,22 +90,28 @@ class VoterController < ApplicationController
     tz = TZInfo::Timezone.get('Asia/Karachi')
     @local_time = tz.to_local(Time.now.utc)
     @voter = Voter.find(params[:id])
-    @voter.update(token_number: @voter.next_token_number) if @voter.printed == false
-    @voter.update(printed: true)
-    lock
+    
+    # Combine all updates into a single query
+    updates = { printed: true, disabled: true }
+    updates[:token_number] = @voter.next_token_number if @voter.printed == false
+    @voter.update(updates)
+    
     respond_to do |format|
-      format.html { render layout: 'layouts/printable' } # Renders the HTML version using the printable layout
+      format.html { render layout: 'layouts/printable' }
     end
   end
 
   def special_print
     puts "Special Print"
+    tz = TZInfo::Timezone.get('Asia/Karachi')
+    @local_time = tz.to_local(Time.now.utc)
     @voter = Voter.find(params[:id])
-    # @voter.update(token_number: @voter.next_token_number) if @voter.printed == false
-    @voter.update(printed: true)
-    lock
+    
+    # Combine all updates into a single query
+    @voter.update(printed: true, disabled: true)
+    
     respond_to do |format|
-      format.html { render layout: 'layouts/printable' } # Renders the HTML version using the printable layout
+      format.html { render layout: 'layouts/printable' }
     end
   end
 
@@ -113,7 +119,7 @@ class VoterController < ApplicationController
     puts "Lock"
     @voter = Voter.find(params[:id])
     @voter.update(disabled: true)
-    redirect_to root_path, notice: "Row disabled successfully." if !params[:action].eql?("print") && !params[:action].eql?("special_print")
+    redirect_to root_path, notice: "Row disabled successfully."
   end
 
   private

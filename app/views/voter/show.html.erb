@@ -46,20 +46,21 @@
           <td class= "table-data" ><%= voter.qabeela %></td>
           <td class= "table-data" ><%= voter.urfiat %></td>
           <td class= "table-data" ><%= voter.wf_upto %></td>
-          <td class= "table-data" ><%= voter.dob %></td>
+          <td class= "table-data" ><%= voter.formatted_dob %></td>
           <td class= "table-data" ><%= voter.mobile || voter.cell_no %></td>
           <!--- <td class= "table-data" ><%= link_to 'Show', voter %></td> -->
           
             <td class= "table-data print-button" >
               <%= link_to "Print", "javascript:void(0);", class: "button-link",
-                onclick: voter.disabled ? nil : "printAndReload('#{print_voter_path(voter)}');" %>
+                onclick: voter.disabled ? nil : "handleAction('#{voter.execution_no.blank?}', '#{print_voter_path(voter)}', 'print');" %>
             </td>
             <td class= "table-data disable-button" >
-              <%= link_to "Lock", voter.disabled ? "javascript:void(0);" : lock_voter_path(voter), class: "button-link"%>
+              <%= link_to "Lock", "javascript:void(0);", class: "button-link",
+                onclick: voter.disabled ? nil : "handleAction('#{voter.execution_no.blank?}', '#{lock_voter_path(voter)}', 'lock');" %>
             </td>
             <td class= "table-data print-button special-button" >
               <%= link_to "Special Print", "javascript:void(0);", class: "button-link",
-                onclick: voter.disabled ? nil : "printAndReload('#{special_print_voter_path(voter)}');" %>
+                onclick: voter.disabled ? nil : "handleAction('#{voter.execution_no.blank?}', '#{special_print_voter_path(voter)}', 'print');" %>
             </td>
         </tr>
       <% end %>
@@ -82,6 +83,19 @@
   else{
     specialButton = document.getElementsByClassName("special-button")[0]
     specialButton.style.visibility = 'hidden';
+  }
+
+  function handleAction(noExecution, url, actionType) {
+    if (noExecution === 'true') {
+      alert('Execution No not available for this Voter');
+      return false;
+    }
+    
+    if (actionType === 'print') {
+      printAndReload(url);
+    } else if (actionType === 'lock') {
+      window.location.href = url;
+    }
   }
 
   function printAndReload(url) {
