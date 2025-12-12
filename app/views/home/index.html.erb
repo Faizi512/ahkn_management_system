@@ -18,7 +18,12 @@
     <div class="guest_entry">
       <br/>
       <h2> Guest entry </h2>
-      <%= render partial: 'guest_entry'%>
+      <% if flash[:alert] %>
+        <div class="alert alert-error" style="background-color: #f8d7da; color: #721c24; padding: 10px; border-radius: 5px; margin-bottom: 15px;">
+          <%= flash[:alert] %>
+        </div>
+      <% end %>
+      <%= render partial: 'guest_entry', locals: { voter: @voter_for_form } %>
     </div>
   </div>
 </div>

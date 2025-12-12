@@ -1,22 +1,40 @@
 <%= form_with url: voter_index_path, data: {turbo: false} do |f| %>
   <%= f.label :name %>
-  <%= f.text_field :name %>
+  <%= f.text_field :name, required: true, value: params[:name] %>
+  <% if voter&.errors&.[](:name)&.any? %>
+    <span style="color: #dc3545; font-size: 12px; display: block;"><%= voter.errors[:name].first %></span>
+  <% end %>
 
   <%= f.label :qabeela %>
-  <%= f.text_field :qabeela %>
+  <%= f.text_field :qabeela, required: true, value: params[:qabeela] %>
+  <% if voter&.errors&.[](:qabeela)&.any? %>
+    <span style="color: #dc3545; font-size: 12px; display: block;"><%= voter.errors[:qabeela].first %></span>
+  <% end %>
 
   <%= f.label :urfiat %>
-  <%= f.text_field :urfiat %>
+  <%= f.text_field :urfiat, required: true, value: params[:urfiat] %>
+  <% if voter&.errors&.[](:urfiat)&.any? %>
+    <span style="color: #dc3545; font-size: 12px; display: block;"><%= voter.errors[:urfiat].first %></span>
+  <% end %>
   <br/>
   <br/>
   <%= f.label :phone %>
-  <%= f.text_field :phone %>
+  <%= f.text_field :phone, required: true, value: params[:phone] %>
+  <% if voter&.errors&.[](:cell_no)&.any? %>
+    <span style="color: #dc3545; font-size: 12px; display: block;"><%= voter.errors[:cell_no].first %></span>
+  <% end %>
 
   <%= f.label :execution_no %>
-  <%= f.text_field :execution_no %>
+  <%= f.text_field :execution_no, required: true, value: params[:execution_no] %>
+  <% if voter&.errors&.[](:execution_no)&.any? %>
+    <span style="color: #dc3545; font-size: 12px; display: block;"><%= voter.errors[:execution_no].first %></span>
+  <% end %>
 
   <%= f.label :cnic %>
-  <%= f.text_field :cnic %>
+  <%= f.text_field :cnic, required: true, value: params[:cnic] %>
+  <% if voter&.errors&.[](:cnic)&.any? %>
+    <span style="color: #dc3545; font-size: 12px; display: block;"><%= voter.errors[:cnic].first %></span>
+  <% end %>
 
   <%= f.hidden_field :guest_entry, value: true%>
 

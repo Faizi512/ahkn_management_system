@@ -29,10 +29,25 @@ class VoterController < ApplicationController
       
       if !Voter.where(cnic: clean_cnic).present?
         @voter = Voter.new(name: params[:name], qabeela: params[:qabeela], urfiat: params[:urfiat], cell_no: params[:phone], execution_no: params[:execution_no], cnic: clean_cnic, guest_entry: params[:guest_entry])
-        @voter.update!(token_number: @voter.next_token_number)
+        
+        if @voter.valid?
+          @voter.update!(token_number: @voter.next_token_number)
+          if @voter.save
+            redirect_to "/voter/search?query=#{@voter.cnic}&commit=Search", notice: 'Guest entry created successfully.'
+          else
+            # Pass voter to home#index view
+            @voter_for_form = @voter
+            render 'home/index', status: :unprocessable_entity
+          end
+        else
+          # Pass voter to home#index view
+          @voter_for_form = @voter
+          render 'home/index', status: :unprocessable_entity
+        end
       else
         redirect_to "/voter/search?query=#{clean_cnic}&commit=Search"
       end
+      return
     end
 
     if !@voter.blank? && @voter.save
