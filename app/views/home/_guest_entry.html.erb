@@ -6,7 +6,23 @@
   <% end %>
 
   <%= f.label :qabeela %>
-  <%= f.text_field :qabeela, required: true, value: params[:qabeela] %>
+  <%= f.select :qabeela, 
+      options_for_select([
+        ['WAYYAR', 'WAYYAR'],
+        ['ASSOCIATE QABEELA', 'ASSOCIATE QABEELA'],
+        ['CHOKRA', 'CHOKRA'],
+        ['JAWA', 'JAWA'],
+        ['DHEENGRA', 'DHEENGRA'],
+        ['CHAWLA', 'CHAWLA'],
+        ['CHAN`NA', 'CHAN`NA'],
+        ['KUKRAYJA', 'KUKRAYJA'],
+        ['DUGRAYJA', 'DUGRAYJA'],
+        ['KHURANA', 'KHURANA'],
+        ['SUCHDEV', 'SUCHDEV'],
+        ['KHUDABANDA', 'KHUDABANDA']
+      ], params[:qabeela]),
+      { prompt: 'Select Qabeela' },
+      { required: true, class: 'qabeela-select' } %>
   <% if voter&.errors&.[](:qabeela)&.any? %>
     <span style="color: #dc3545; font-size: 12px; display: block;"><%= voter.errors[:qabeela].first %></span>
   <% end %>
@@ -34,6 +50,12 @@
   <%= f.text_field :cnic, required: true, value: params[:cnic] %>
   <% if voter&.errors&.[](:cnic)&.any? %>
     <span style="color: #dc3545; font-size: 12px; display: block;"><%= voter.errors[:cnic].first %></span>
+  <% end %>
+
+  <%= f.label :user_code, "User Code" %>
+  <%= f.text_field :user_code, required: true, value: params[:user_code] %>
+  <% if voter&.errors&.[](:user_code)&.any? %>
+    <span style="color: #dc3545; font-size: 12px; display: block;"><%= voter.errors[:user_code].first %></span>
   <% end %>
 
   <%= f.hidden_field :guest_entry, value: true%>

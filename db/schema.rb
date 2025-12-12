@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_12_12_091528) do
+ActiveRecord::Schema[7.0].define(version: 2025_12_12_114357) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
   enable_extension "pg_trgm"
@@ -49,6 +49,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_12_12_091528) do
     t.string "kid_chk"
     t.integer "token_number"
     t.boolean "guest_entry"
+    t.string "user_code"
     t.index ["cnic"], name: "index_voters_on_cnic"
     t.index ["cnic_chk"], name: "index_voters_on_cnic_chk"
     t.index ["disabled"], name: "index_voters_on_disabled"

@@ -23,11 +23,14 @@ class Voter < ApplicationRecord
 
   # Validations for guest entries
   validates :name, presence: { message: "Name is required" }, if: :guest_entry?
-  validates :qabeela, presence: { message: "Qabeela is required" }, if: :guest_entry?
+  validates :qabeela, presence: { message: "Qabeela is required" }, 
+            exclusion: { in: [nil, '', 'Select Qabeela'], message: "Please select a Qabeela" }, 
+            if: :guest_entry?
   validates :urfiat, presence: { message: "Urfiat is required" }, if: :guest_entry?
   validates :cell_no, presence: { message: "Phone is required" }, if: :guest_entry?
   validates :execution_no, presence: { message: "Execution No is required" }, if: :guest_entry?
   validates :cnic, presence: { message: "CNIC is required" }, if: :guest_entry?
+  validates :user_code, presence: { message: "User Code is required" }, if: :guest_entry?
 
   def guest_entry?
     guest_entry == true

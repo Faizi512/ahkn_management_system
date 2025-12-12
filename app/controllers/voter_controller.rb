@@ -28,7 +28,7 @@ class VoterController < ApplicationController
       clean_cnic = params[:cnic].to_s.gsub(/[-\s]/, '')
       
       if !Voter.where(cnic: clean_cnic).present?
-        @voter = Voter.new(name: params[:name], qabeela: params[:qabeela], urfiat: params[:urfiat], cell_no: params[:phone], execution_no: params[:execution_no], cnic: clean_cnic, guest_entry: params[:guest_entry])
+        @voter = Voter.new(name: params[:name], qabeela: params[:qabeela], urfiat: params[:urfiat], cell_no: params[:phone], execution_no: params[:execution_no], cnic: clean_cnic, user_code: params[:user_code], guest_entry: params[:guest_entry])
         
         if @voter.valid?
           @voter.update!(token_number: @voter.next_token_number)
