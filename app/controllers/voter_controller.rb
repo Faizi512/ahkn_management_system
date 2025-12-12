@@ -24,11 +24,14 @@ class VoterController < ApplicationController
     if !params[:guest_entry].eql?("true")
       @voter = Voter.new(voter_params)
     else
-      if !Voter.where(cnic: params[:cnic]).present?
-        @voter = Voter.new(name: params[:name], qabeela: params[:qabeela], urfiat: params[:urfiat], cell_no: params[:phone], execution_no: params[:execution_no], cnic: params[:cnic], guest_entry: params[:guest_entry])
+      # Clean CNIC - remove dashes and spaces
+      clean_cnic = params[:cnic].to_s.gsub(/[-\s]/, '')
+      
+      if !Voter.where(cnic: clean_cnic).present?
+        @voter = Voter.new(name: params[:name], qabeela: params[:qabeela], urfiat: params[:urfiat], cell_no: params[:phone], execution_no: params[:execution_no], cnic: clean_cnic, guest_entry: params[:guest_entry])
         @voter.update!(token_number: @voter.next_token_number)
       else
-        redirect_to "/voter/search?query=#{params[:cnic]}&commit=Search"
+        redirect_to "/voter/search?query=#{clean_cnic}&commit=Search"
       end
     end
 
