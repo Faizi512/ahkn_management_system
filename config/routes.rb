@@ -25,6 +25,7 @@ Rails.application.routes.draw do
       get :guest_entries
       get :daily_report
       get :welfare_status
+      get :attendance_export
     end
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

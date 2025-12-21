@@ -9,15 +9,33 @@
         <%= link_to "← Back to Reports", reports_path, class: "back-link" %>
       </div>
 
-      <!-- Date Filter -->
+      <!-- Filters -->
       <div class="filter-section">
         <%= form_tag attendance_reports_path, method: :get, class: "date-filter-form" do %>
-          <label for="date">Filter by Date:</label>
-          <%= date_field_tag :date, params[:date], class: "date-input" %>
-          <%= submit_tag "Filter", class: "filter-btn" %>
-          <% if params[:date].present? %>
-            <%= link_to "Clear", attendance_reports_path, class: "clear-btn" %>
-          <% end %>
+          <div class="filter-row">
+            <div class="filter-group">
+              <label for="date">Filter by Date:</label>
+              <%= date_field_tag :date, params[:date], class: "date-input" %>
+            </div>
+            <div class="filter-group">
+              <label for="qabeela">Filter by Qabeela:</label>
+              <%= select_tag :qabeela, 
+                  options_for_select([['All Qabeela', '']] + @qabeela_options.map { |q| [q, q] }, params[:qabeela]),
+                  { class: "qabeela-select" } %>
+            </div>
+            <div class="filter-group">
+              <label for="type">Filter by Type:</label>
+              <%= select_tag :type, 
+                  options_for_select([['All Types', ''], ['Member', 'member'], ['Guest', 'guest']], params[:type]),
+                  { class: "type-select" } %>
+            </div>
+            <div class="filter-actions">
+              <%= submit_tag "Filter", class: "filter-btn" %>
+              <% if params[:date].present? || params[:qabeela].present? || params[:type].present? %>
+                <%= link_to "Clear", attendance_reports_path, class: "clear-btn" %>
+              <% end %>
+            </div>
+          </div>
         <% end %>
       </div>
 
@@ -41,7 +59,7 @@
             <span class="stat-label">Female</span>
           </div>
         </div>
-        <div class="stat-card stat-info">
+        <div class="stat-card stat-indigo">
           <div class="stat-info">
             <span class="stat-value"><%= @member_attendance %></span>
             <span class="stat-label">Members</span>
@@ -57,6 +75,13 @@
 
       <!-- Attendance Table -->
       <div class="report-table-container">
+        <div class="table-header-actions">
+          <%= link_to attendance_export_reports_path(date: params[:date], qabeela: params[:qabeela], type: params[:type]), 
+              class: "download-btn", 
+              title: "Download as Excel" do %>
+            <i class="fa fa-download"></i> Download Excel
+          <% end %>
+        </div>
         <table class="report-table">
           <thead>
             <tr>

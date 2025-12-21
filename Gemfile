@@ -50,6 +50,8 @@ gem "bootsnap", require: false
 
 gem 'roo'
 gem 'roo-xls'
+gem 'axlsx'
+gem 'axlsx_rails'
 
 gem 'font-awesome-sass'
 

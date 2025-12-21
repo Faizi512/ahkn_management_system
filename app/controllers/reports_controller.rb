@@ -32,6 +32,9 @@ class ReportsController < ApplicationController
   end
 
   def attendance
+    # Get all unique Qabeela values for dropdown
+    @qabeela_options = Voter.where.not(qabeela: [nil, '']).distinct.pluck(:qabeela).compact.sort
+    
     # Show all printed voters in table (including guests)
     @voters = Voter.where(printed: true).order(token_number: :desc)
     
@@ -39,6 +42,20 @@ class ReportsController < ApplicationController
     if params[:date].present?
       date = Date.parse(params[:date])
       @voters = @voters.where("DATE(updated_at) = ?", date)
+    end
+    
+    # Filter by Qabeela if provided
+    if params[:qabeela].present?
+      @voters = @voters.where(qabeela: params[:qabeela])
+    end
+    
+    # Filter by Type if provided
+    if params[:type].present?
+      if params[:type] == 'guest'
+        @voters = @voters.where(guest_entry: true)
+      elsif params[:type] == 'member'
+        @voters = @voters.where("COALESCE(guest_entry, false) = false")
+      end
     end
     
     # Attendance counts only include voters with execution_no
@@ -113,6 +130,90 @@ class ReportsController < ApplicationController
                          .select("wf_upto, COUNT(*) as total,
                                   SUM(CASE WHEN printed = true AND execution_no IS NOT NULL AND execution_no != '' THEN 1 ELSE 0 END) as printed_count")
                          .order("total DESC")
+  end
+
+  def attendance_export
+    # Get filtered voters (same logic as attendance action)
+    voters = Voter.where(printed: true).order(token_number: :desc)
+    
+    # Filter by date if provided
+    if params[:date].present?
+      date = Date.parse(params[:date])
+      voters = voters.where("DATE(updated_at) = ?", date)
+    end
+    
+    # Filter by Qabeela if provided
+    if params[:qabeela].present?
+      voters = voters.where(qabeela: params[:qabeela])
+    end
+    
+    # Filter by Type if provided
+    if params[:type].present?
+      if params[:type] == 'guest'
+        voters = voters.where(guest_entry: true)
+      elsif params[:type] == 'member'
+        voters = voters.where("COALESCE(guest_entry, false) = false")
+      end
+    end
+    
+    package = Axlsx::Package.new
+    workbook = package.workbook
+    
+    # Add styles
+    header_style = workbook.styles.add_style(
+      bg_color: "4472C4",
+      fg_color: "FFFFFF",
+      b: true,
+      alignment: { horizontal: :center, vertical: :center }
+    )
+    
+    workbook.add_worksheet(name: "Attendance Report") do |sheet|
+      # Add header row
+      sheet.add_row([
+        "Token #",
+        "Name",
+        "CNIC",
+        "KID",
+        "Execution No",
+        "Gender",
+        "Type",
+        "Qabeela",
+        "Printed At"
+      ], style: header_style)
+      
+      # Add data rows
+      voters.each do |voter|
+        gender = voter.cnic.present? && voter.cnic.to_i.even? ? "Female" : "Male"
+        type = voter.guest_entry ? "Guest" : "Member"
+        
+        sheet.add_row([
+          voter.token_number,
+          voter.name,
+          voter.cnic,
+          voter.kid.to_i,
+          voter.execution_no.presence || "-",
+          gender,
+          type,
+          voter.qabeela,
+          voter.updated_at.strftime("%d-%b-%Y %I:%M %p")
+        ])
+      end
+      
+      # Auto-adjust column widths
+      sheet.column_widths 10, 30, 15, 10, 15, 10, 10, 20, 20
+    end
+    
+    # Generate filename with filters
+    filename_parts = ["attendance_report"]
+    filename_parts << params[:date].gsub('-', '') if params[:date].present?
+    filename_parts << params[:qabeela].gsub(' ', '_') if params[:qabeela].present?
+    filename_parts << params[:type] if params[:type].present?
+    filename = "#{filename_parts.join('_')}_#{Date.today.strftime('%Y%m%d')}.xlsx"
+    
+    send_data package.to_stream.read, 
+              filename: filename,
+              type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+              disposition: "attachment"
   end
 end
 
