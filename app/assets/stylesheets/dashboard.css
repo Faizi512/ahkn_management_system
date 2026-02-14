@@ -185,3 +185,21 @@ html, body {
 .menu li.disabled:hover {
   background-color: #a8a8a8;
 }
+
+/* Qabeela dropdown styling to match text inputs */
+.qabeela-select {
+  display: inline-block;
+  width: 35% !important;
+  padding: 1px 2px;
+  font-size: 13px;
+  border: 1px solid #aaa9a9 !important;
+  border-radius: 2px;
+  background-color: #e4e1e1 !important;
+  vertical-align: middle;
+  cursor: pointer;
+  outline: none;
+}
+
+.qabeela-select:focus {
+  border-color: #2196F3;
+}
