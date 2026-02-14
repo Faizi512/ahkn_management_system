@@ -16,7 +16,7 @@ class DataLoaderService
 
     (2..spreadsheet.last_row).each do |i|
       row = Hash[[header, spreadsheet.row(i)].transpose]
-      
+      voter_no=[header, spreadsheet.row(i)][1][0]
       # Map Excel column names to database column names
       mapped_row = {
         cnic: clean_cnic(row["CNIC"]),
@@ -30,7 +30,7 @@ class DataLoaderService
         updated_at: current_time,
         disabled: false,
         printed: false,
-        voter_no: row["VOTER NO"],
+        voter_no: voter_no,
         akhn: row["AKHN"],
         verification: row["VERIFICATION"],
         execution_no: row["EXECUTION NO"],
@@ -50,7 +50,6 @@ class DataLoaderService
         dob: row["DOB"],
         kid_chk: row["KID CHK"]
       }
-      
       records << mapped_row
       
       # Bulk insert when batch size is reached

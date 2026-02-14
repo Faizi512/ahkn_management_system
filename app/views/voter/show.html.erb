@@ -34,7 +34,7 @@
       <% @voters.each do |voter| %>
         <tr class = "table-row <%= 'locked' if voter.disabled %>">
           <!-- <td class= "table-data"><%= voter.id %></td> -->
-          <td class= "table-data"><%= voter.guest_entry.eql?(true) ? "Guest entry" : voter.kid&.to_i %></td>
+          <td class= "table-data"><%= voter.guest_entry.eql?(true) ? "Guest entry" : voter.voter_no %></td>
           <td class= "table-data" ><%= voter.name %></td>
           <td class= "table-data" ><%= voter.cnic %></td>
           <td class= "table-data" ><%= voter&.execution_no.to_i %></td>

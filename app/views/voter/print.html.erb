@@ -63,7 +63,7 @@
       <% if @voter.guest_entry.eql?(true) %>
         <h4 class="label">CNIC  <%= @voter.cnic %> </h4>
       <% else %>
-        <h4 class="label">KID  <%= @voter.kid.to_i %> </h4>
+        <h4 class="label">KID  <%= @voter.voter_no %> </h4>
       <% end %>
         <h4 class="label">EXEC  <%= @voter.execution_no %> </h4>
     </div>

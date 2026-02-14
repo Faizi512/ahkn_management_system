@@ -53,7 +53,7 @@
     <% @voters.each do |voter| %>
       <tr class = "table-row <%= 'locked' if voter.disabled %>">
         <td class= "table-data"><%= voter.id %></td>
-        <td class= "table-data"><%= voter.kid %></td>
+        <td class= "table-data"><%= voter.voter_no %></td>
         <td class= "table-data" ><%= voter.name %></td>
         <td class= "table-data" ><%= voter.cnic %></td>
         <td class= "table-data" ><%= voter.execution_no %></td>
