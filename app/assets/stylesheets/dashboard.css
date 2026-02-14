@@ -189,7 +189,7 @@ html, body {
 /* Qabeela dropdown styling to match text inputs */
 .qabeela-select {
   display: inline-block;
-  width: 35% !important;
+  width: 50% !important;
   padding: 1px 2px;
   font-size: 13px;
   border: 1px solid #aaa9a9 !important;
